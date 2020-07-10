@@ -1,4 +1,4 @@
-#MCDA
+# MCDA
 
 This repo contains several methods which can be useful for solving MCDA problems. Maybe someday in future I will rewrite it in appropriate way.
 
