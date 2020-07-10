@@ -23,3 +23,9 @@ There are also several wrappers, one for each method. Their purpose is to allow 
 
 ### Future plans
 I am hoping that someday I will partially rewrite this code and get rid off this wrappers and other ugly things.
+
+
+- [ ] Merge methods in one file or submodule
+- [ ] Unify method interfaces, so wrappers become unnecessary
+- [ ] Rewrite normalization methods
+- [ ] Add more comments, references
