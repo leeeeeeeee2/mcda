@@ -2,6 +2,28 @@ import numpy as np
 import matplotlib.pyplot as plt
 import networkx as nx
 
+from .. import normalization
+from scipy.stats import rankdata
+from .mcda_method import MCDA_metod
+
+
+class PROMEHTEE_II(MCDA_metod):
+    def __init__(self, preference_function, q_mod):
+        """
+Create PROMEHTEE_II method object, using `preference_function` and `q_mod`.
+
+Args:
+    `preference_function`: name of the preference function ('usual', 'ushape', 'vshape', 'level', 'vshape_2')
+    `q_mod`: multiplyer in the equation of the q
+"""
+        self.preference_function = preference_function
+        self.q_mod = q_mod
+
+    def __call__(self, matrix, weights, types, return_type='raw'):
+        Fp, Fm, FI = promethee(matrix, weights, types,
+                               preference_function, q_mod)
+        return PROMEHTEE_II._determine_result(1 - FI, return_type)
+
 def promethee(matrix, weights,
               criteria_types=None,
               preference_function='usual',
