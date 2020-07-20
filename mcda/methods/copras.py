@@ -1,6 +1,5 @@
 import numpy as np
 from .. import normalization
-from scipy.stats import rankdata
 from .mcda_method import MCDA_metod
 
 class COPRAS(MCDA_metod):
@@ -11,15 +10,16 @@ Create COPRAS method object, using normaliztion `normalization_function`.
 Args:
     `normalization_function`: function or None. If None method won't do any normalization of the input matrix. If function, it would be used for normalize `matrix` columns. It should match signature `foo(x, cost)`, where `x` is a vector which would be normalized and `cost` is a bool variable which says if `x` is a cost or profit criteria.
 """
+        self.normalization = normalization_function
 
     def __call__(self, matrix, weights, types, return_type='raw'):
         if self.normalization is not None:
             nmatrix = normalization.normalize_matrix(matrix, self.normalization, types)
         else:
             nmatrix = matrix.copy()
-        raw_ranks = 1 - COPRAS._topsis(nmatrix, weights)
+        raw_ranks = 1 - COPRAS._copras(nmatrix, weights, types)
 
-        return TOPSIS._determine_result(raw_ranks, return_type)
+        return COPRAS._determine_result(raw_ranks, return_type)
 
     def _copras(matrix, weights, cryteria_types):
         '''COPRAS MCDM method

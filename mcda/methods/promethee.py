@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 import networkx as nx
 
 from .. import normalization
-from scipy.stats import rankdata
 from .mcda_method import MCDA_metod
 
 
@@ -21,7 +20,7 @@ Args:
 
     def __call__(self, matrix, weights, types, return_type='raw'):
         Fp, Fm, FI = promethee(matrix, weights, types,
-                               preference_function, q_mod)
+                               self.preference_function, self.q_mod)
         return PROMEHTEE_II._determine_result(1 - FI, return_type)
 
 def promethee(matrix, weights,

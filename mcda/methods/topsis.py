@@ -1,6 +1,5 @@
 import numpy as np
 from .. import normalization
-from scipy.stats import rankdata
 from .mcda_method import MCDA_metod
 
 

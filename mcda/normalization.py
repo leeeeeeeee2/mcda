@@ -7,37 +7,37 @@ def minmax_normalization(x, cost=False):
     if min(x) == max(x): # If all values are equal
         return np.ones(x.shape)
 
-    if cost_criteria:
+    if cost:
         return (max(x) - x) / (max(x) - min(x))
     return (x - min(x)) / (max(x) - min(x))
 
 
 def max_normalization(x, cost=False):
-    if cost_criteria:
+    if cost:
         return 1 - x/max(x)
     return x / max(x)
 
 
 def sum_normalization(x, cost=False):
-    if cost_criteria:
+    if cost:
         return (1/x) / sum(1/x)
     return x / sum(x)
 
 
 def vector_normalization(x, cost=False):
-    if cost_criteria:
+    if cost:
         return 1 - (x / np.sqrt(sum(x ** 2)))
     return x / np.sqrt(sum(x ** 2))
 
 
 def logaritmic_normalization(x, cost=False):
     prod = reduce(lambda a, b: a*b, x)
-    if cost_criteria:
+    if cost:
         return (1 - (np.log(x) / m.log(prod))) / (len(x) - 1)
     return np.log(x) / m.log(prod)
 
 
-def normalize_matrix(matrix, normalization, criteria_types):
+def normalize_matrix(matrix, method, criteria_types):
     """
 Normalize each column in `matrix`, using `normalization` function according `criteria_types`.
 

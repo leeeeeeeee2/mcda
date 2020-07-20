@@ -1,4 +1,5 @@
 from abc import ABC
+from scipy.stats import rankdata
 
 class MCDA_metod(ABC):
     def __call__(self, matrix, weights, types, return_type='raw'):
