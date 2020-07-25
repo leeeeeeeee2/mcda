@@ -44,7 +44,7 @@ Normalize each column in `matrix`, using `normalization` function according `cri
 Args:
     `matrix`: numpy ndarray which represents decision matrix. The rows are considered as alternatives and the columns are considered as criteria.
     `normalization`: function which would be used for normalize `matrix` columns. It should match signature `foo(x, cost)`, where `x` is a vector which would be normalized and `cost` is a bool variable which says if `x` is a cost or profit criteria.
-    `criteria_types`: iterable object (e.g. list or tuple) which contains 1 if criteria is profit and -1 if criteria is cost for each criteria in `matrix`.
+    `criteria_types`: None or iterable object (e.g. list or tuple) which contains 1 if criteria is profit and -1 if criteria is cost for each criteria in `matrix`. If None all criteria are considered as profit
 
 Returns:
     Normalized copy of the input matrix.
@@ -52,6 +52,12 @@ Returns:
 Raises:
     ValueError: if `criteria_types` and `matrix` has different number of criteria.
 """
+    if criteria_types is None:
+        nmatrix = matrix.copy()
+        for i in range(matrix.shape[1]):
+            nmatrix[:,i] = method(matrix[:,i], cost=False)
+        return nmatrix
+
     if matrix.shape[1] != len(criteria_types):
         raise ValueError(f'Matrix has {matrix.shape[1]} criteria and criteria_types has {len(criteria_types)}. This values must be equal.')
 
