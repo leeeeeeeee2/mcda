@@ -60,7 +60,7 @@ def promethee(matrix, weights,
     H_tables = []
     for d in diff_tables:
         q = np.mean(d[d > 0]) - (q_mod * np.std(d[d > 0]))
-        p = np.sum(d[d > 0])
+        p = np.mean(d[d > 0]) + (q_mod * np.std(d[d > 0]))
         h = np.zeros((N, N))
         for i in range(N):
             for j in range(N):
