@@ -53,7 +53,7 @@ Raises:
     ValueError: if `criteria_types` and `matrix` has different number of criteria.
 """
     if criteria_types is None:
-        nmatrix = matrix.copy()
+        nmatrix = matrix.astype('float')
         for i in range(matrix.shape[1]):
             nmatrix[:,i] = method(matrix[:,i], cost=False)
         return nmatrix
@@ -61,7 +61,7 @@ Raises:
     if matrix.shape[1] != len(criteria_types):
         raise ValueError(f'Matrix has {matrix.shape[1]} criteria and criteria_types has {len(criteria_types)}. This values must be equal.')
 
-    nmatrix = matrix.copy()
+    nmatrix = matrix.astype('float')
     for i, type in enumerate(criteria_types):
         if type == 1:
             nmatrix[:,i] = method(matrix[:,i], cost=False)

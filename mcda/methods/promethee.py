@@ -19,6 +19,7 @@ Args:
         self.q_mod = q_mod
 
     def __call__(self, matrix, weights, types, return_type='raw'):
+        PROMEHTEE_II._validate_input_data(matrix, weights, types)
         Fp, Fm, FI = promethee(matrix, weights, types,
                                self.preference_function, self.q_mod)
         return PROMEHTEE_II._determine_result(1 - FI, return_type)
