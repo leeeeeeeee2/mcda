@@ -3,10 +3,10 @@ import matplotlib.pyplot as plt
 import networkx as nx
 
 from .. import normalization
-from .mcda_method import MCDA_metod
+from .mcda_method import MCDA_method
 
 
-class PROMEHTEE_II(MCDA_metod):
+class PROMEHTEE_II(MCDA_method):
     def __init__(self, preference_function, q_mod):
         """
 Create PROMEHTEE_II method object, using `preference_function` and `q_mod`.

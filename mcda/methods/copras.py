@@ -1,8 +1,8 @@
 import numpy as np
 from .. import normalization
-from .mcda_method import MCDA_metod
+from .mcda_method import MCDA_method
 
-class COPRAS(MCDA_metod):
+class COPRAS(MCDA_method):
     def __init__(self, normalization_function=None):
         """
 Create COPRAS method object, using normaliztion `normalization_function`.

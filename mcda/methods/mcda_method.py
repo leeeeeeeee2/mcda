@@ -1,7 +1,7 @@
 from abc import ABC
 from scipy.stats import rankdata
 
-class MCDA_metod(ABC):
+class MCDA_method(ABC):
     def __call__(self, matrix, weights, types, return_type='raw'):
         """
 Rank alternatives from decision matrix `matrix`, with criteria weights `weights` and criteria types `types`. Return values are determined by `return_type` argument.

@@ -1,9 +1,9 @@
 import numpy as np
 from .. import normalization
-from .mcda_method import MCDA_metod
+from .mcda_method import MCDA_method
 
 
-class TOPSIS(MCDA_metod):
+class TOPSIS(MCDA_method):
     def __init__(self, normalization_function=normalization.minmax_normalization):
         """
 Create TOPSIS method object, using normaliztion `normalization_function`.

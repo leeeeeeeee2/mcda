@@ -1,9 +1,8 @@
 import numpy as np
 from .. import normalization
-from .mcda_method import MCDA_metod
+from .mcda_method import MCDA_method
 
-
-class VIKOR(MCDA_metod):
+class VIKOR(MCDA_method):
     def __init__(self, normalization_function=None):
         """
 Create VIKOR method object, using normaliztion `normalization_function`.

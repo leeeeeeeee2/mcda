@@ -2,7 +2,7 @@
 
 import numpy as np
 from .. import normalization
-from .mcda_method import MCDA_metod
+from .mcda_method import MCDA_method
 
 def _euclidean_dist(a, b):
     return np.sqrt((a - b) ** 2)
