@@ -4,30 +4,32 @@ import numpy as np
 from .. import normalization
 from .mcda_method import MCDA_method
 
-def _euclidean_dist(a, b):
-    return np.sqrt((a - b) ** 2)
 
 class SPOTIS(MCDA_method):
-    def __init__(self,
-                 normalization_function=normalization.minmax_normalization,
-                 distance_function=_euclidean_dist):
+    def __init__(self):
         """
-Create TOPSIS method object, using normaliztion `normalization_function`.
-
-Args:
-    `normalization_function`: function or None. If None method won't do any normalization of the input matrix. If function, it would be used for normalize `matrix` columns. It should match signature `foo(x, cost)`, where `x` is a vector which would be normalized and `cost` is a bool variable which says if `x` is a cost or profit criteria.
+Create SPOTIS method object.
 """
-        self.normalization = normalization_function
-        self.distance = distance_function
+        pass
 
-    def __call__(self, matrix, weights, types, return_type='raw', isp=None):
+    def __call__(self, matrix, weights, types, bounds=None, return_type='raw'):
         SPOTIS._validate_input_data(matrix, weights, types)
-        if self.normalization is not None:
-            nmatrix = normalization.normalize_matrix(matrix, self.normalization, types)
-        else:
-            nmatrix = matrix.copy()
-        raw_ranks = 1 - SPOTIS._topsis(nmatrix, weights)
+
+        # If bounds is not given, determine it based on decision matrix
+        if bounds is None:
+            bounds = np.array((np.min(matrix, axis=0), np.max(matrix, axis=0))).T
+
+        # Determine Ideal Solution Point based on criteria bounds
+        isp = bounds[np.arange(bounds.shape[0]), (types+1)//2]
+        raw_ranks = SPOTIS._spotis(matrix, weights, isp, bounds)
 
         return SPOTIS._determine_result(raw_ranks, return_type)
 
-
+    def _spotis(matrix, weights, isp, bounds):
+        nmatrix = matrix.astype(float)
+        # Normalized distances matrix (d_{ij})
+        nmatrix = np.abs((nmatrix - isp)/
+                         (bounds[:,0] - bounds[:,1]))
+        # Distances to ISP (smaller means better alt)
+        raw_scores = np.sum(nmatrix * weights, axis=1)
+        return raw_scores
