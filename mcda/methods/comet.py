@@ -1,6 +1,7 @@
 from itertools import product
 import numpy as np
 from .topsis import TOPSIS
+from .mcda_method import MCDA_method
 
 
 def _TFN(a, m, b):
@@ -16,7 +17,7 @@ def _TFN(a, m, b):
     return tfn
 
 
-class COMET:
+class COMET(MCDA_method):
     def __init__(self, cvalues, ranking_method=TOPSIS(), weights=None, types=None):
         """
 Initialize COMET model. It creates CO and rank them using `ranking_method`.
@@ -56,6 +57,11 @@ Args:
         self.p = p
         self.tfns = [COMET._make_tfns(chv) for chv in cvalues]
         self.mej = None
+
+    def __call__(self, matrix, weights, types, return_type='raw', **kwargs):
+        raw_ranks = 1 - COMET.rate_alt_list(matrix)
+
+        return COMET._determine_result(raw_ranks, return_type)
 
     def rate_alt(self, alt):
         """

@@ -12,7 +12,7 @@ Create SPOTIS method object.
 """
         pass
 
-    def __call__(self, matrix, weights, types, bounds=None, return_type='raw'):
+    def __call__(self, matrix, weights, types, return_type='raw', bounds=None, **kwargs):
         SPOTIS._validate_input_data(matrix, weights, types)
 
         # If bounds is not given, determine it based on decision matrix

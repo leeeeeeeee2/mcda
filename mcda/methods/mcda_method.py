@@ -2,7 +2,7 @@ from abc import ABC
 from scipy.stats import rankdata
 
 class MCDA_method(ABC):
-    def __call__(self, matrix, weights, types, return_type='raw'):
+    def __call__(self, matrix, weights, types, return_type='raw', **kwargs):
         """
 Rank alternatives from decision matrix `matrix`, with criteria weights `weights` and criteria types `types`. Return values are determined by `return_type` argument.
 
@@ -15,7 +15,7 @@ Args:
 
 Returns:
     if `return_type` is 'raw', then raw values would be returned.
-    if `return_type` is 'ranks', then rank values would be returned. Rank values created using scipy.stats.rankdata function.
+    if `return_type` is 'rank', then rank values would be returned. Rank values created using scipy.stats.rankdata function.
     if `return_type` is 'both', both raw and rank values would be returned (e.g. return raw, ranks)
 """
         pass
@@ -23,12 +23,12 @@ Returns:
     def _determine_result(raw_ranks, return_type):
         if return_type == 'raw':
             return raw_ranks
-        elif return_type == 'ranks':
+        elif return_type == 'rank':
             return rankdata(raw_ranks)
         elif return_type == 'both':
             return raw_ranks, rankdata(raw_ranks)
         else:
-            raise ValueError(f'return_type argument should be "raw", "ranks" or "both", but it was "{return_type}"')
+            raise ValueError(f'return_type argument should be "raw", "rank" or "both", but it was "{return_type}"')
 
     def _validate_input_data(matrix, weights, types):
         if matrix.shape[1] != weights.shape[0] and weights.shape[0] != len(types):
