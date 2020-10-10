@@ -55,6 +55,7 @@ Args:
         self.cvalues = cvalues
         self.p = p
         self.tfns = [COMET._make_tfns(chv) for chv in cvalues]
+        self.mej = None
 
     def rate_alt(self, alt):
         """
@@ -81,6 +82,9 @@ Returns:
         return np.array([self.rate_alt(alt) for alt in alt_set])
 
     def get_MEJ(self):
+        if self.mej is not None:
+            return self.mej
+
         p = self.p
         lenp = len(p)
         mej = np.diag(np.ones(lenp)/2)
@@ -95,6 +99,7 @@ Returns:
                 else:
                     mej[i, j] = 1.0
                     mej[j, i] = 0.0
+        self.mej = mej
         return mej
 
 
