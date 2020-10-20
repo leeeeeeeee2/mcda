@@ -18,7 +18,7 @@ def _TFN(a, m, b):
 
 
 class COMET(MCDA_method):
-    def __init__(self, cvalues, ranking_method=TOPSIS(), weights=None, types=None):
+    def __init__(self, cvalues, ranking_method=None, weights=None, types=None):
         """
 Initialize COMET model. It creates CO and rank them using `ranking_method`.
 
@@ -41,7 +41,7 @@ Args:
         if types is None:
             types = np.ones(N)
 
-        sj = 1 - ranking_method(co, weights, types, return_type='raw')
+        sj = ranking_method(co, weights, types, return_type='raw')
 
         k = len(np.unique(sj))
 
@@ -59,7 +59,7 @@ Args:
         self.mej = None
 
     def __call__(self, matrix, weights, types, return_type='raw', **kwargs):
-        raw_ranks = 1 - COMET.rate_alt_list(matrix)
+        raw_ranks = 1 - self.rate_alt_list(matrix)
 
         return COMET._determine_result(raw_ranks, return_type)
 
