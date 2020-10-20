@@ -12,15 +12,28 @@ Args:
 """
         self.normalization = normalization_function
 
-    def __call__(self, matrix, weights, types, return_type='raw', **kwargs):
+    def __call__(self, matrix, weights, types, *args, **kwargs):
+        """
+Rank alternatives from decision matrix `matrix`, with criteria weights `weights` and criteria types `types`.
+
+Args:
+    `matrix`: ndarray represented decision matrix.
+            Alternatives are in rows and Criteria are in columns.
+    `weights`: ndarray, represented criteria weights.
+    `types`: ndarray which contains 1 if criteria is profit and -1 if criteria is cost for each criteria in `matrix`.
+    `*args` and `**kwargs` are necessary for methods which reqiure some additional data.
+
+Returns:
+    Q ranking. Better alternatives have lower values.
+"""
         VIKOR._validate_input_data(matrix, weights, types)
         if self.normalization is not None:
             nmatrix = normalization.normalize_matrix(matrix, self.normalization, types)
         else:
-            nmatrix = matrix.copy()
+            nmatrix = matrix.astype('float')
         S, R, Q = VIKOR._vikor(nmatrix, weights)
+        return np.array(Q)
 
-        return VIKOR._determine_result(np.array(Q), return_type)
 
     def _vikor(matrix, weights):
         """

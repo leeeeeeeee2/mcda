@@ -9,19 +9,30 @@ class TOPSIS(MCDA_method):
 Create TOPSIS method object, using normaliztion `normalization_function`.
 
 Args:
-    `normalization_function`: function or None. If None method won't do any normalization of the input matrix. If function, it would be used for normalize `matrix` columns. It should match signature `foo(x, cost)`, where `x` is a vector which would be normalized and `cost` is a bool variable which says if `x` is a cost or profit criteria.
+    `normalization_function`: function which should be used to normalize `matrix` columns. It should match signature `foo(x, cost)`, where `x` is a vector which would be normalized and `cost` is a bool variable which says if `x` is a cost or profit criterion.
 """
         self.normalization = normalization_function
 
     def __call__(self, matrix, weights, types, return_type='raw', **kwargs):
+        """
+Rank alternatives from decision matrix `matrix`, with criteria weights `weights` and criteria types `types`.
+
+Args:
+    `matrix`: ndarray represented decision matrix.
+            Alternatives are in rows and Criteria are in columns.
+    `weights`: ndarray, represented criteria weights.
+    `types`: ndarray which contains 1 if criteria is profit and -1 if criteria is cost for each criteria in `matrix`.
+    `*args` and `**kwargs` are necessary for methods which reqiure some additional data.
+
+Returns:
+    Ranking of alternatives. Better alternatives have higher values.
+"""
         TOPSIS._validate_input_data(matrix, weights, types)
         if self.normalization is not None:
             nmatrix = normalization.normalize_matrix(matrix, self.normalization, types)
         else:
-            nmatrix = matrix.copy()
-        raw_ranks = 1 - TOPSIS._topsis(nmatrix, weights)
-
-        return TOPSIS._determine_result(raw_ranks, return_type)
+            nmatrix = matrix.astype('float')
+        return TOPSIS._topsis(nmatrix, weights)
 
     def _topsis(matrix, weights):
         """

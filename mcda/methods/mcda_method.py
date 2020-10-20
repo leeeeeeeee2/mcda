@@ -1,34 +1,18 @@
 from abc import ABC
-from scipy.stats import rankdata
 
 class MCDA_method(ABC):
-    def __call__(self, matrix, weights, types, return_type='raw', **kwargs):
+    def __call__(self, matrix, weights, types, *args, **kwargs):
         """
-Rank alternatives from decision matrix `matrix`, with criteria weights `weights` and criteria types `types`. Return values are determined by `return_type` argument.
+Rank alternatives from decision matrix `matrix`, with criteria weights `weights` and criteria types `types`.
 
 Args:
     `matrix`: ndarray represented decision matrix.
             Alternatives are in rows and Criteria are in columns.
     `weights`: ndarray, represented criteria weights.
-    `types`: iterable object (e.g. list or tuple) which contains 1 if criteria is profit and -1 if criteria is cost for each criteria in `matrix`.
-    `return_type`: str, 'raw', 'ranks' or 'both' (see below)
-
-Returns:
-    if `return_type` is 'raw', then raw values would be returned.
-    if `return_type` is 'rank', then rank values would be returned. Rank values created using scipy.stats.rankdata function.
-    if `return_type` is 'both', both raw and rank values would be returned (e.g. return raw, ranks)
+    `types`: ndarray which contains 1 if criteria is profit and -1 if criteria is cost for each criteria in `matrix`.
+    `*args` and `**kwargs` are necessary for methods which reqiure some additional data.
 """
         pass
-
-    def _determine_result(raw_ranks, return_type):
-        if return_type == 'raw':
-            return raw_ranks
-        elif return_type == 'rank':
-            return rankdata(raw_ranks)
-        elif return_type == 'both':
-            return raw_ranks, rankdata(raw_ranks)
-        else:
-            raise ValueError(f'return_type argument should be "raw", "rank" or "both", but it was "{return_type}"')
 
     def _validate_input_data(matrix, weights, types):
         if matrix.shape[1] != weights.shape[0] and weights.shape[0] != len(types):

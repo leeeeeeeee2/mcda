@@ -5,28 +5,39 @@ from .mcda_method import MCDA_method
 class COPRAS(MCDA_method):
     def __init__(self, normalization_function=None):
         """
-Create COPRAS method object, using normaliztion `normalization_function`.
+Create COPRAS method object, using normalization `normalization_function`.
 
 Args:
     `normalization_function`: function or None. If None method won't do any normalization of the input matrix. If function, it would be used for normalize `matrix` columns. It should match signature `foo(x, cost)`, where `x` is a vector which would be normalized and `cost` is a bool variable which says if `x` is a cost or profit criteria.
 """
         self.normalization = normalization_function
 
-    def __call__(self, matrix, weights, types, return_type='raw', **kwargs):
+    def __call__(self, matrix, weights, types, *args, **kwargs):
+        """
+Rank alternatives from decision matrix `matrix`, with criteria weights `weights` and criteria types `types`.
+
+Args:
+    `matrix`: ndarray represented decision matrix.
+            Alternatives are in rows and Criteria are in columns.
+    `weights`: ndarray, represented criteria weights.
+    `types`: ndarray which contains 1 if criteria is profit and -1 if criteria is cost for each criteria in `matrix`.
+    `*args` and `**kwargs` are necessary for methods which reqiure some additional data.
+
+Returns:
+    Ranking for alternatives. Better alternatives have higher values.
+"""
         COPRAS._validate_input_data(matrix, weights, types)
         if self.normalization is not None:
             nmatrix = normalization.normalize_matrix(matrix, self.normalization, types)
         else:
-            nmatrix = matrix.copy()
-        raw_ranks = 1 - COPRAS._copras(nmatrix, weights, types)
+            nmatrix = matrix.astype('float')
+        return COPRAS._copras(nmatrix, weights, types)
 
-        return COPRAS._determine_result(raw_ranks, return_type)
-
-    def _copras(matrix, weights, cryteria_types):
+    def _copras(nmatrix, weights, cryteria_types):
         '''COPRAS MCDM method
         Arguments:
             matrix: Decision matrix. Normalization is built-in.
-                    Alternative are in rows and Criteria are in columns.
+                    Alternatives are in rows and Criteria are in columns.
             weights: Weights to criteria
             criteria_types: Numpy array of 1 and -1
                             1 for profit and
@@ -34,13 +45,10 @@ Args:
         Returns:
             ranks: ranking list
         '''
-
-        # Normalization
-        nmatrix = matrix.copy()
-        crit_sums = np.sum(matrix, axis=0)
+        crit_sums = np.sum(nmatrix, axis=0)
 
         for i in range(nmatrix.shape[0]):
-            nmatrix[i] = matrix[i] / crit_sums
+            nmatrix[i] = nmatrix[i] / crit_sums
 
         # Difficult normalized decision making matrix
         wmatrix = nmatrix * np.tile(weights, (nmatrix.shape[0], 1))

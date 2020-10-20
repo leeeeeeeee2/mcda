@@ -1,6 +1,5 @@
 from itertools import product
 import numpy as np
-from .topsis import TOPSIS
 from .mcda_method import MCDA_method
 
 
@@ -41,7 +40,7 @@ Args:
         if types is None:
             types = np.ones(N)
 
-        sj = ranking_method(co, weights, types, return_type='raw')
+        sj = ranking_method(co, weights, types)
 
         k = len(np.unique(sj))
 
@@ -58,10 +57,21 @@ Args:
         self.tfns = [COMET._make_tfns(chv) for chv in cvalues]
         self.mej = None
 
-    def __call__(self, matrix, weights, types, return_type='raw', **kwargs):
-        raw_ranks = 1 - self.rate_alt_list(matrix)
+    def __call__(self, matrix, weights, types, *args, **kwargs):
+        """
+Rank alternatives from decision matrix `matrix`, with criteria weights `weights` and criteria types `types`.
 
-        return COMET._determine_result(raw_ranks, return_type)
+Args:
+    `matrix`: ndarray represented decision matrix.
+            Alternatives are in rows and Criteria are in columns.
+    `weights`: ndarray, represented criteria weights.
+    `types`: ndarray which contains 1 if criteria is profit and -1 if criteria is cost for each criteria in `matrix`.
+    `*args` and `**kwargs` are necessary for methods which reqiure some additional data.
+
+Returns:
+    Preference values for alternatives. Better alternatives have higher values.
+"""
+        return self.rate_alt_list(matrix)
 
     def rate_alt(self, alt):
         """
