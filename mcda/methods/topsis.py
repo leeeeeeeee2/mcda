@@ -31,10 +31,10 @@ Returns:
         if self.normalization is not None:
             nmatrix = normalization.normalize_matrix(matrix, self.normalization, types)
         else:
-            nmatrix = matrix.astype('float')
+            nmatrix = normalization.normalize_matrix(matrix, normalization.minmax_normalization, types)
         return TOPSIS._topsis(nmatrix, weights)
 
-    def _topsis(matrix, weights):
+    def _topsis(nmatrix, weights):
         """
 TOPSIS MCDM method
 
@@ -46,23 +46,16 @@ Args:
 Returns:
     ranks: raw rank values
 """
-        weighted_matrix = matrix * np.tile(weights, (matrix.shape[0], 1))
+        # Every row of nmatrix is multiplayed by weights
+        weighted_matrix = nmatrix * weights
 
+        # Vectors of PIS and NIS
         pis = np.max(weighted_matrix, axis=0)
         nis = np.min(weighted_matrix, axis=0)
 
-        Dp = []
-        Dm = []
-        for vi in weighted_matrix:
-            dp = np.sqrt(sum((vi - pis)**2))
-            Dp.append(dp)
+        # PIS and NIS are substracted from every row of weighted matrix
+        Dp = np.sqrt(np.sum((weighted_matrix - pis) ** 2, axis=1))
+        Dm = np.sqrt(np.sum((weighted_matrix - nis) ** 2, axis=1))
 
-            dm = np.sqrt(sum((vi - nis)**2))
-            Dm.append(dm)
-
-        ranks = []
-        for dm, dp in zip(Dm, Dp):
-            ranks.append(dm/(dm+dp))
-
-        return np.array(ranks, dtype=float)
+        return Dm / (Dm + Dp)
 
