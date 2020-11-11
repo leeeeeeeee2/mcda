@@ -12,7 +12,7 @@ Args:
 """
         self.normalization = normalization_function
 
-    def __call__(self, matrix, weights, types, *args, **kwargs):
+    def __call__(self, matrix, weights, types, *args, v=0.5, return_all=False, **kwargs):
         """
 Rank alternatives from decision matrix `matrix`, with criteria weights `weights` and criteria types `types`.
 
@@ -21,6 +21,8 @@ Args:
             Alternatives are in rows and Criteria are in columns.
     `weights`: ndarray, represented criteria weights.
     `types`: ndarray which contains 1 if criteria is profit and -1 if criteria is cost for each criteria in `matrix`.
+    `v`: weight of the strategy (see VIKOR algorithm explanation)
+    `return_all`: if True, returns all three rankings (S, R, Q) instead of Q
     `*args` and `**kwargs` are necessary for methods which reqiure some additional data.
 
 Returns:
@@ -31,11 +33,14 @@ Returns:
             nmatrix = normalization.normalize_matrix(matrix, self.normalization, types)
         else:
             nmatrix = matrix.astype('float')
-        S, R, Q = VIKOR._vikor(nmatrix, weights)
-        return np.array(Q)
+        S, R, Q = VIKOR._vikor(nmatrix, weights, v)
+        if return_all:
+            return np.array(S), np.array(R), np.array(Q)
+        else:
+            return np.array(Q)
 
 
-    def _vikor(matrix, weights):
+    def _vikor(matrix, weights, v=0.5):
         """
 VIKOR MCDM method
 
@@ -67,7 +72,6 @@ Returns:
         Rminus = np.max(R)
         ss = Sminus - Sstar
         rr = Rminus - Rstar
-        v = 0.5
 
         # Ensure we won't divide on zero
         if rr == 0:
