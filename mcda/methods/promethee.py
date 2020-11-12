@@ -18,7 +18,7 @@ Args:
         self.preference_function = preference_function
         self.q_mod = q_mod
 
-    def __call__(self, matrix, weights, types, *args, **kwargs):
+    def __call__(self, matrix, weights, types, *args, promethee_I=False, **kwargs):
         """
 Rank alternatives from decision matrix `matrix`, with criteria weights `weights` and criteria types `types`.
 
@@ -27,6 +27,7 @@ Args:
             Alternatives are in rows and Criteria are in columns.
     `weights`: ndarray, represented criteria weights.
     `types`: ndarray which contains 1 if criteria is profit and -1 if criteria is cost for each criteria in `matrix`.
+    `promethee_I`: bool, if True then returns F+ and F- (like in promethee I).
     `*args` and `**kwargs` are necessary for methods which reqiure some additional data.
 
 Returns:
@@ -35,7 +36,10 @@ Returns:
         PROMEHTEE_II._validate_input_data(matrix, weights, types)
         Fp, Fm, FI = PROMEHTEE_II._promethee(matrix, weights, types,
                                              self.preference_function, self.q_mod)
-        return FI
+        if promethee_I:
+            return Fp, Fm
+        else:
+            return FI
 
     def _promethee(matrix, weights,
                   criteria_types=None,
