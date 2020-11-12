@@ -1,6 +1,7 @@
 from itertools import product
 import numpy as np
 from .mcda_method import MCDA_method
+from .topsis import TOPSIS
 
 
 def _TFN(a, m, b):
@@ -17,36 +18,41 @@ def _TFN(a, m, b):
 
 
 class COMET(MCDA_method):
-    def __init__(self, cvalues, ranking_method=None, weights=None, types=None):
+    def __init__(self, cvalues, rate_function=None, expert_function=None):
         """
 Initialize COMET model. It creates CO and rank them using `ranking_method`.
 
 Args:
     `cvalues`:  ndarray, each row represent characteristic values for each criteria.
-    `rankings_method`: MCDA method instance which should be used for ranking.
-    `weights`: ndarray or None. Weight vector for `ranking_method`,
-               if None `ranking_method` would use equal weights.
-    `types`: ndarray or None. Should contain 1 for profit criteria
-             and -1 for cost criteria.
-             If None all criteria considered as profit.
+    `rankings_method`: Function to rate CO without creating MEJ.
+                       Matrix with CO as rows is passed as an argument
+                       Vector with rates should be retrurn. Better CO should has higher values.
+    `expert_function`: Function which would be used to compare CO on MEJ creation.
+                       It should fulfill this requirments:
+                       CO to compare are passed as arguments (a, b)
+                       if a is better then b return 1,
+                       if b is better then a return 0,
+                       if this CO are equaly prefered return 0.5
+    If both ranking_method and expert_function are provided, expert_function is preffered.
 """
         co = product(*cvalues)
         co = np.array(list(co))
 
-        N = co.shape[1]
-        if weights is None:
-            weights = np.ones(N) / N
+        # Determine how MEJ and SJ is calculated
+        if expert_function is not None:
+            self.mej = COMET._build_mej(co, expert_function)
+            sj = np.sum(self.mej , axis=1)
+        elif rate_function is not None:
+            self.mej = None
+            sj = rate_function(co)
+        else:
+            raise ValueError('rate_function or expert_function should be provided.')
 
-        if types is None:
-            types = np.ones(N)
-
-        sj = ranking_method(co, weights, types)
-
-        k = len(np.unique(sj))
+        k = np.unique(sj).size
 
         delta = 1 / (k - 1)
 
-        p = np.zeros(len(sj))
+        p = np.empty(sj.size)
         for i in range(1, k):
             ind = sj == np.max(sj)
             p[ind] = (k - i) / (k - 1)
@@ -55,7 +61,7 @@ Args:
         self.cvalues = cvalues
         self.p = p
         self.tfns = [COMET._make_tfns(chv) for chv in cvalues]
-        self.mej = None
+
 
     def __call__(self, matrix, weights, types, *args, **kwargs):
         """
@@ -71,7 +77,7 @@ Args:
 Returns:
     Preference values for alternatives. Better alternatives have higher values.
 """
-        return self.rate_alt_list(matrix)
+        return np.array([self.rate_alt(alt) for alt in matrix])
 
     def rate_alt(self, alt):
         """
@@ -91,16 +97,25 @@ Returns:
         co = np.array(list(co))
         # Add p vector to co matrix
         cop = np.hstack((co, self.p.reshape(-1, 1)))
-
         return np.sum(np.prod(cop, axis=1))
 
-    def rate_alt_list(self, alt_set):
-        return np.array([self.rate_alt(alt) for alt in alt_set])
+
+    def _build_mej(co, expert_function):
+        # Initiate MEJ with diagonal with 0.5 values
+        mej = np.diag(np.ones(co.shape[0]) * 0.5)
+        for i in range(mej.shape[0]):
+            for j in range(i+1, mej.shape[0]):
+                v = expert_function(co[i], co[j])
+                mej[i, j] = v
+                mej[j, i] = 1 - v
+        return mej
 
     def get_MEJ(self):
         if self.mej is not None:
             return self.mej
 
+        # If there's no MEJ then rate_function was used to create SJ and P
+        # Now we can create MEJ using P to compare CO.
         p = self.p
         lenp = len(p)
         mej = np.diag(np.ones(lenp)/2)
@@ -118,7 +133,6 @@ Returns:
         self.mej = mej
         return mej
 
-
     def _make_tfns(chv):
         tfns = []
         # First TFN
@@ -131,4 +145,28 @@ Returns:
         tfns.append(_TFN(chv[-2], chv[-1], chv[-1]))
 
         return tfns
+
+    def manual_expert(criteria_names):
+        '''Returns function for manual rating characteristic objects.'''
+        def manual(a, b):
+            # Print CO data
+            print(f'{" "*15} | {"a":>9} | {"b":>9}')
+            for name, va, vb in zip(criteria_names, a, b):
+                print(f'{name[:15]:>15s} | {va:>9} | {vb:>9}')
+
+            # Input from expert
+            print('Which one is better?')
+            options = {'a': 1.0, 'b': 0.0, '': 0.5}
+            inp = None
+            while inp not in options:
+                inp = input('Input "a", "b" or leave empty if a i b are equaly prefered.\n>>> ')
+            return options[inp]
+        return manual
+
+    def topsis_rate_function(weights, types):
+        '''Return function to rate characteristic objects with TOPSIS'''
+        topsis = TOPSIS()
+        def topsis_rate(co):
+            return topsis(co, weights, types)
+        return topsis_rate
 
