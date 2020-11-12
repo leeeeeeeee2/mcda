@@ -1,40 +1,38 @@
-from functools import reduce
-import math as m
 import numpy as np
 
 
 def minmax_normalization(x, cost=False):
-    if min(x) == max(x): # If all values are equal
+    if np.min(x) == np.max(x): # If all values are equal
         return np.ones(x.shape)
 
     if cost:
-        return (max(x) - x) / (max(x) - min(x))
-    return (x - min(x)) / (max(x) - min(x))
+        return (np.max(x) - x) / (np.max(x) - np.min(x))
+    return (x - np.min(x)) / (np.max(x) - np.min(x))
 
 
 def max_normalization(x, cost=False):
     if cost:
-        return 1 - x/max(x)
-    return x / max(x)
+        return 1 - x/np.max(x)
+    return x / np.max(x)
 
 
 def sum_normalization(x, cost=False):
     if cost:
-        return (1/x) / sum(1/x)
-    return x / sum(x)
+        return (1/x) / np.sum(1/x)
+    return x / np.sum(x)
 
 
 def vector_normalization(x, cost=False):
     if cost:
         return 1 - (x / np.sqrt(sum(x ** 2)))
-    return x / np.sqrt(sum(x ** 2))
+    return x / np.sqrt(np.sum(x ** 2))
 
 
 def logaritmic_normalization(x, cost=False):
-    prod = reduce(lambda a, b: a*b, x)
+    prod = np.prod(x)
     if cost:
-        return (1 - (np.log(x) / m.log(prod))) / (len(x) - 1)
-    return np.log(x) / m.log(prod)
+        return (1 - (np.log(x) / np.log(prod))) / (x.shape[0] - 1)
+    return np.log(x) / np.log(prod)
 
 
 def normalize_matrix(matrix, method, criteria_types):
@@ -63,7 +61,7 @@ Raises:
 
     nmatrix = matrix.astype('float')
     for i, type in enumerate(criteria_types):
-        if type == 1:
+        if type == 1: # If profit
             nmatrix[:,i] = method(matrix[:,i], cost=False)
         else:
             nmatrix[:,i] = method(matrix[:,i], cost=True)
