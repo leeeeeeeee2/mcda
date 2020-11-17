@@ -1,6 +1,10 @@
 import numpy as np
 from .normalization import sum_normalization, normalize_matrix
 
+def equal(matrix):
+    N = matrix.shape[1]
+    return np.ones(N) / N
+
 def entropy(matrix):
     m, n = matrix.shape
     nmatrix = normalize_matrix(matrix, sum_normalization, None)
