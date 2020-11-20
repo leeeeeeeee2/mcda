@@ -29,9 +29,9 @@ Returns:
 """
         TOPSIS._validate_input_data(matrix, weights, types)
         if self.normalization is not None:
-            nmatrix = normalization.normalize_matrix(matrix, self.normalization, types)
+            nmatrix = normalizations.normalize_matrix(matrix, self.normalization, types)
         else:
-            nmatrix = normalization.normalize_matrix(matrix, normalization.minmax_normalization, types)
+            nmatrix = normalizations.normalize_matrix(matrix, normalization.minmax_normalization, types)
         return TOPSIS._topsis(nmatrix, weights)
 
     def _topsis(nmatrix, weights):
