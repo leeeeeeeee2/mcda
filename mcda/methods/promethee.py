@@ -1,6 +1,4 @@
 import numpy as np
-import matplotlib.pyplot as plt
-import networkx as nx
 
 from .. import normalization
 from .mcda_method import MCDA_method
