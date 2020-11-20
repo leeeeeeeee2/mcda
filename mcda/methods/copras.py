@@ -1,5 +1,4 @@
 import numpy as np
-from .. import normalization
 from .mcda_method import MCDA_method
 
 class COPRAS(MCDA_method):

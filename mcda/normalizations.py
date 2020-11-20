@@ -1,5 +1,13 @@
 import numpy as np
 
+__all__ = [
+    'minmax_normalization',
+    'max_normalization',
+    'sum_normalization',
+    'vector_normalization',
+    'logaritmic_normalization',
+    'normalize_matrix'
+]
 
 def minmax_normalization(x, cost=False):
     if np.min(x) == np.max(x): # If all values are equal

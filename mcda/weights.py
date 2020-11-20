@@ -1,5 +1,11 @@
 import numpy as np
-from .normalization import sum_normalization, normalize_matrix
+from .normalizations import sum_normalization, normalize_matrix
+
+__all__ = [
+    'equal',
+    'entropy',
+    'standard_deviation',
+]
 
 def equal(matrix):
     N = matrix.shape[1]

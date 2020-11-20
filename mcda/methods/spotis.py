@@ -1,7 +1,7 @@
 # https://www.researchgate.net/publication/344069742_The_SPOTIS_Rank_Reversal_Free_Method_for_Multi-Criteria_Decision-Making_Support
 
 import numpy as np
-from .. import normalization
+from .. import normalizations
 from .mcda_method import MCDA_method
 
 

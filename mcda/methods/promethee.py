@@ -1,6 +1,6 @@
 import numpy as np
 
-from .. import normalization
+from .. import normalizations
 from .mcda_method import MCDA_method
 
 

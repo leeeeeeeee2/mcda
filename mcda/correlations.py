@@ -1,6 +1,15 @@
 import numpy as np
 from itertools import permutations
 
+__all__ = [
+    'spearman',
+    'pearson',
+    'weighted_spearman',
+    'rank_similarity_coef',
+    'kendall_tau',
+    'goodman_kruskal_gamma'
+]
+
 def _cov(x, y):
     return np.cov(x, y, bias=True)[0][1]
 
