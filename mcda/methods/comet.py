@@ -1,19 +1,24 @@
 from itertools import product
+from functools import reduce
+
 import numpy as np
+
 from .mcda_method import MCDA_method
 from .topsis import TOPSIS
 
 
 def _TFN(a, m, b):
     def tfn(x):
-        if x < a or x > b:
-            return 0.0
-        if x == m:
-            return 1.0
-        elif x < m:
-            return (x - a) / (m - a)
-        else:
-            return (b - x) / (b - m)
+        res = np.zeros(x.shape)
+        mask = x == m
+        res[mask] = 1
+
+        mask = np.logical_and(x > a, x < m)
+        res[mask] = (x[mask] - a) / (m - a)
+
+        mask = np.logical_and(x < b, x > m)
+        res[mask] = (b - x[mask]) / (b - m)
+        return res
     return tfn
 
 
@@ -63,39 +68,27 @@ Args:
         self.tfns = [COMET._make_tfns(chv) for chv in cvalues]
 
 
-    def __call__(self, matrix, *args, **kwargs):
+    def __call__(self, alts, *args, **kwargs):
         """
 Rank alternatives from decision matrix `matrix`, with criteria weights `weights` and criteria types `types`.
 
 Args:
-    `matrix`: ndarray represented decision matrix.
+    `alts`: ndarray represented decision matrix.
             Alternatives are in rows and Criteria are in columns.
     `*args` and `**kwargs` are necessary for methods which reqiure some additional data.
 
 Returns:
     Preference values for alternatives. Better alternatives have higher values.
 """
-        return np.array([self.rate_alt(alt) for alt in matrix])
-
-    def rate_alt(self, alt):
-        """
-Calculate preference for the alternative `alt`
-
-Args:
-    `alt`: np.array with criteria values for this alternative
-
-Returns:
-    Preference for the alternative `alt`
-"""
         tfns = self.tfns
-        # Calculate preference function for each tfn created from cvalues
-        preference_levels = [[tfn(ialt) for tfn in tfns_icrit]
-                             for tfns_icrit, ialt in zip(tfns, alt)]
-        co = product(*preference_levels)
-        co = np.array(list(co))
-        # Add p vector to co matrix
-        cop = np.hstack((co, self.p.reshape(-1, 1)))
-        return np.sum(np.prod(cop, axis=1))
+
+        pref_level_vectors = [[tfn(values) for tfn in tfns_icrit]
+                              for values, tfns_icrit in zip(alts.T, tfns)]
+
+        tfns_values_product = product(*pref_level_vectors)
+        multiplayed_co = (reduce(lambda a, b: a*b, co_values) * p
+                          for p, co_values in zip(self.p, tfns_values_product))
+        return sum(multiplayed_co)
 
 
     def _build_mej(co, expert_function):
