@@ -2,14 +2,9 @@ import numpy as np
 from .mcda_method import MCDA_method
 
 class COPRAS(MCDA_method):
-    def __init__(self, normalization_function=None):
-        """
-Create COPRAS method object, using normalization `normalization_function`.
-
-Args:
-    `normalization_function`: function or None. If None method won't do any normalization of the input matrix. If function, it would be used for normalize `matrix` columns. It should match signature `foo(x, cost)`, where `x` is a vector which would be normalized and `cost` is a bool variable which says if `x` is a cost or profit criteria.
-"""
-        self.normalization = normalization_function
+    def __init__(self):
+        """Create COPRAS method object."""
+        pass
 
     def __call__(self, matrix, weights, types, *args, **kwargs):
         """
@@ -26,15 +21,11 @@ Returns:
     Ranking for alternatives. Better alternatives have higher values.
 """
         COPRAS._validate_input_data(matrix, weights, types)
-        if self.normalization is not None:
-            nmatrix = normalization.normalize_matrix(matrix, self.normalization, types)
-        else:
-            nmatrix = matrix.astype('float')
-        return COPRAS._copras(nmatrix, weights, types)
+        return COPRAS._copras(matrix, weights, types)
 
     @staticmethod
-    def _copras(nmatrix, weights, cryteria_types):
-        '''COPRAS MCDM method
+    def _copras(matrix, weights, cryteria_types):
+        """COPRAS MCDM method
         Arguments:
             matrix: Decision matrix. Normalization is built-in.
                     Alternatives are in rows and Criteria are in columns.
@@ -44,14 +35,11 @@ Returns:
                             -1 for cost
         Returns:
             ranks: ranking list
-        '''
-        crit_sums = np.sum(nmatrix, axis=0)
-
-        for i in range(nmatrix.shape[0]):
-            nmatrix[i] = nmatrix[i] / crit_sums
+        """
+        nmatrix = matrix / np.sum(matrix, axis=0)
 
         # Difficult normalized decision making matrix
-        wmatrix = nmatrix * np.tile(weights, (nmatrix.shape[0], 1))
+        wmatrix = nmatrix * weights
 
         Sp = np.sum(wmatrix[:, cryteria_types == 1], axis=1)
         Sm = np.sum(wmatrix[:, cryteria_types == -1], axis=1)
