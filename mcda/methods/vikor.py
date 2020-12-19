@@ -35,9 +35,9 @@ Returns:
             nmatrix = matrix.astype('float')
         S, R, Q = VIKOR._vikor(nmatrix, weights, v)
         if return_all:
-            return np.array(S), np.array(R), np.array(Q)
+            return S, R, Q
         else:
-            return np.array(Q)
+            return Q
 
     @staticmethod
     def _vikor(matrix, weights, v=0.5):
@@ -51,35 +51,19 @@ Arguments:
 Returns:
     S, R, Q: Ranking lists
 """
-        w = weights
         fstar = np.max(matrix, axis=0)
         fminus = np.min(matrix, axis=0)
-        ff = fstar - fminus
 
-        # Ensure we won't divide on zero
-        ff[ff == 0] = 10 ** -10
-
-        S = []
-        R = []
-        for fi in matrix:
-            tmp = w * ((fstar - fi)/ff)
-            S.append(sum(tmp))
-            R.append(max(tmp))
+        weighted_ff = weights * ((fstar - matrix)/(fstar - fminus))
+        S = np.sum(weighted_ff, axis=1)
+        R = np.max(weighted_ff, axis=1)
 
         Sstar = np.min(S)
         Sminus = np.max(S)
         Rstar = np.min(R)
         Rminus = np.max(R)
-        ss = Sminus - Sstar
-        rr = Rminus - Rstar
 
-        # Ensure we won't divide on zero
-        if rr == 0:
-            rr = 10 ** -10
-
-        Q = []
-        for sj, rj in zip(S, R):
-            qj = v * (sj - Sstar)/ss + (1-v)*(rj - Rstar)/rr
-            Q.append(qj)
+        Q = v * (S - Sstar)/(Sminus - Sstar)\
+          + (1 - v) * (R - Rstar)/(Rminus - Rstar)
 
         return S, R, Q
