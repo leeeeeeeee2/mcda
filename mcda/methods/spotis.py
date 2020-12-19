@@ -36,6 +36,7 @@ Returns:
         isp = bounds[np.arange(bounds.shape[0]), ((types+1)//2).astype('int')]
         return SPOTIS._spotis(matrix, weights, isp, bounds)
 
+    @staticmethod
     def _spotis(matrix, weights, isp, bounds):
         nmatrix = matrix.astype(float)
         # Normalized distances matrix (d_{ij})

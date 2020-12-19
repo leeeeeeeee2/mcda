@@ -32,6 +32,7 @@ Returns:
             nmatrix = matrix.astype('float')
         return COPRAS._copras(nmatrix, weights, types)
 
+    @staticmethod
     def _copras(nmatrix, weights, cryteria_types):
         '''COPRAS MCDM method
         Arguments:

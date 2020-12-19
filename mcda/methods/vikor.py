@@ -39,7 +39,7 @@ Returns:
         else:
             return np.array(Q)
 
-
+    @staticmethod
     def _vikor(matrix, weights, v=0.5):
         """
 VIKOR MCDM method

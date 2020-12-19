@@ -48,6 +48,7 @@ Returns:
         else:
             return FI
 
+    @staticmethod
     def _promethee(matrix, weights, criteria_types, pref_functions):
         # N - number of alternatives
         # M - number of criteria
@@ -68,12 +69,15 @@ Returns:
 
 
     class _PreferenceFunctions:
+        @staticmethod
         def usual(d, q, p):
             return (d > 0).astype(np.int8)
 
+        @staticmethod
         def ushape(d, q, p):
             return (d > q).astype(np.int8)
 
+        @staticmethod
         def vshape(d, q, p):
             d_ = d.copy()
             cond = np.logical_and(0 < d, d <= p)
@@ -81,6 +85,7 @@ Returns:
             np.putmask(d_, np.logical_not(cond), d > p)
             return d_
 
+        @staticmethod
         def level(d, q, p):
             d_ = d.copy()
             cond = np.logical_and(q < d, d <= p)
@@ -88,6 +93,7 @@ Returns:
             np.putmask(d_, np.logical_not(cond), d > p)
             return d_
 
+        @staticmethod
         def vshape_2(d, q, p):
             d_ = d.copy()
             cond = np.logical_and(q < d, d <= p)

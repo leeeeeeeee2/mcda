@@ -34,6 +34,7 @@ Returns:
             nmatrix = normalizations.normalize_matrix(matrix, normalization.minmax_normalization, types)
         return TOPSIS._topsis(nmatrix, weights)
 
+    @staticmethod
     def _topsis(nmatrix, weights):
         """
 TOPSIS MCDM method

@@ -14,6 +14,7 @@ Args:
 """
         pass
 
+    @staticmethod
     def _validate_input_data(matrix, weights, types):
         if matrix.shape[1] != weights.shape[0] and weights.shape[0] != len(types):
             raise ValueError(f'Number of criteria should be same as number of weights and number of types')

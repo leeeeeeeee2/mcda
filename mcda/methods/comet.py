@@ -91,6 +91,7 @@ Returns:
         return sum(multiplayed_co)
 
 
+    @staticmethod
     def _build_mej(co, expert_function):
         # Initiate MEJ with diagonal with 0.5 values
         mej = np.diag(np.ones(co.shape[0]) * 0.5)
@@ -124,6 +125,7 @@ Returns:
         self.mej = mej
         return mej
 
+    @staticmethod
     def _make_tfns(chv):
         tfns = []
         # First TFN
@@ -137,6 +139,7 @@ Returns:
 
         return tfns
 
+    @staticmethod
     def manual_expert(criteria_names):
         '''Returns function for manual rating characteristic objects.'''
         def manual(a, b):
@@ -154,6 +157,7 @@ Returns:
             return options[inp]
         return manual
 
+    @staticmethod
     def topsis_rate_function(weights, types):
         '''Return function to rate characteristic objects with TOPSIS'''
         topsis = TOPSIS()
