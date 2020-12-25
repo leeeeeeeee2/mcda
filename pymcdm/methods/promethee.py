@@ -1,3 +1,5 @@
+# Copyright (c) 2020 Andrii Shekhovtsov
+
 from functools import partial
 import numpy as np
 

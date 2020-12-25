@@ -1,3 +1,5 @@
+# Copyright (c) 2020 Andrii Shekhovtsov
+
 from itertools import product
 from functools import reduce
 

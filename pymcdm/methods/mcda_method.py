@@ -1,3 +1,5 @@
+# Copyright (c) 2020 Andrii Shekhovtsov
+
 from abc import ABC
 
 class MCDA_method(ABC):

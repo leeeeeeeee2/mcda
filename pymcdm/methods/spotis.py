@@ -1,4 +1,4 @@
-# https://www.researchgate.net/publication/344069742_The_SPOTIS_Rank_Reversal_Free_Method_for_Multi-Criteria_Decision-Making_Support
+# Copyright (c) 2020 Andrii Shekhovtsov
 
 import numpy as np
 from .. import normalizations

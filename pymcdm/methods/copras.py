@@ -1,3 +1,5 @@
+# Copyright (c) 2020 Andrii Shekhovtsov
+
 import numpy as np
 from .mcda_method import MCDA_method
 
