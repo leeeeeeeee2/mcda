@@ -1,0 +1,11 @@
+code,name,manufacturer,carryfying capacity,max velocity,travel range,engine power,engine torque,battery charging 100%,battery charging 80%,battery capacity,price
+A1, EVI MD, Electric Vehicles International,3000,96,145, 200, 610, 10.0, 120, 99.0, 120.0
+A2, EVI Walk-In Van, Electric Vehicles International/Freightliner Custom Chassis Corp.,2000,100,145, 200, 610, 10.0, 120, 99.0, 90.0
+A3, e-NV200+, Nissan,705,120,170, 80, 270, 4.0, 30, 24.0, 25.0
+A4, e-Wolf Omega 0.7, e-Wolf,613,140,180, 140, 400, 8.0, 40, 24.2, 50.0
+A5, Minicab-MiEV Truck, Mitsubishi Motors Corp.,350,100,110, 30, 196, 4.5, 15, 10.5, 12.9
+A6, Mitsubishi Minicab-MiEV (10.5 kWh), Mitsubishi Motors Corp.,350,100,100, 30, 196, 4.5, 15, 10.5, 15.5
+A7, Mitsubishi Minicab-MiEV (16kWh), Mitsubishi Motors Corp.,350,100,150, 30, 196, 7.0, 35, 16.0, 18.7
+A8, Partner Panel Van, Peugeot,635,110,170, 49, 200, 8.0, 35, 22.5, 31.5
+A9, Phoenix Motorcars SUV, Phoenix Motorcars,340,150,160, 110, 500, 6.0, 10, 35.0, 45.0
+A10, Piaggio Porter electric-power, Piaggio Porter,750,57,110, 10, 80, 8.0, 120, 35.0, 24.4

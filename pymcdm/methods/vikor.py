@@ -49,7 +49,7 @@ Returns
 """
         VIKOR._validate_input_data(matrix, weights, types)
         if self.normalization is not None:
-            nmatrix = normalization.normalize_matrix(matrix, self.normalization, types)
+            nmatrix = normalizations.normalize_matrix(matrix, self.normalization, types)
         else:
             nmatrix = matrix.astype('float')
         S, R, Q = VIKOR._vikor(nmatrix, weights, v)
