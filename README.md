@@ -1,17 +1,19 @@
-# MCDA
+# PyMCDM
 
-This repo contains several methods which can be useful for solving MCDA problems. Maybe someday in future I will rewrite it in appropriate way.
-
+This repo contains several methods which can be useful for solving MCDA problems.
 
 ### MCDA methods:
 * TOPSIS
-* COPRAS
 * VIKOR
+* COPRAS
 * PROMETHEE I and II
+* COMET
+* SPOTIS
 
-
-There are also several wrappers, one for each method. Their purpose is to allow to use unified interface across all methods. Also with this wrappers it's possible to obtain ranking with `scipy.stats.rankdata`.
-
+### Weighting methods:
+* Equal weights
+* Entropy method
+* Std method
 
 ### Normalization methods:
 * Linear
@@ -20,12 +22,10 @@ There are also several wrappers, one for each method. Their purpose is to allow 
 * Vector
 * Logarithmic
 
-
-### Future plans
-I am hoping that someday I will partially rewrite this code and get rid off this wrappers and other ugly things.
-
-
-- [x] Merge methods in one file or submodule
-- [x] Unify method interfaces, so wrappers become unnecessary
-- [ ] Rewrite normalization methods
-- [ ] Add more comments, references
+### Correlation coefficients:
+* Spearman
+* Pearson
+* Weighted Spearman
+* Rank Similarity Coefficient
+* Kendall Tau
+* Goodman and Kruskal Gamma
