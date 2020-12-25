@@ -14,23 +14,59 @@ def _cov(x, y):
     return np.cov(x, y, bias=True)[0][1]
 
 def spearman(x, y):
-    '''r_s
-    x, y - rank values
-    '''
+    """Calculate Spearman correlation between two rankings vectors.
+
+Parameters
+----------
+    x : ndarray
+        First vector of ranks.
+
+    y : ndarray
+        Second vector of ranks.
+
+Returns
+-------
+    float
+        Correlation between two rankings vectors.
+"""
     return (_cov(x, y)) / (np.std(x) * np.std(y))
 
 
 def pearson(x, y):
-    '''r
-    x, y - raw values
-    '''
+    """Calculate Pearson correlation between two raw vectors.
+
+Parameters
+----------
+    x : ndarray
+        First vector with raw values.
+
+    y : ndarray
+        Second vector with raw values.
+
+Returns
+-------
+    float
+        Correlation between two vectors.
+"""
     return (_cov(x, y)) / (np.std(x) * np.std(y))
 
 
 def weighted_spearman(x, y):
-    '''r_w
-    x, y - rank values
-    '''
+    """Calculate Weighted Spearman correlation between two rankings vectors.
+
+Parameters
+----------
+    x : ndarray
+        First vector of ranks.
+
+    y : ndarray
+        Second vector of ranks.
+
+Returns
+-------
+    float
+        Correlation between two rankings vectors.
+"""
     N = len(x)
     n = 6 * np.sum((x-y)**2 * ((N - x + 1) + (N - y + 1)))
     d = N**4 + N**3 - N**2 - N
@@ -38,9 +74,21 @@ def weighted_spearman(x, y):
 
 
 def rank_similarity_coef(x, y):
-    '''WS
-    x, y - rank values
-    '''
+    """Calculate Rank Similarity Coefficient (WS) between two rankings vectors.
+
+Parameters
+----------
+    x : ndarray
+        First vector of ranks.
+
+    y : ndarray
+        Second vector of ranks.
+
+Returns
+-------
+    float
+        Correlation between two rankings vectors.
+"""
     N = len(x)
     n = np.fabs(x - y)
     d = np.max((np.fabs(1 - x), np.fabs(N - x)), axis=0)
@@ -48,9 +96,21 @@ def rank_similarity_coef(x, y):
 
 
 def kendall_tau(x, y):
-    '''Kendall Tau
-    x, y - rank values
-    '''
+    """Calculate Kendall Tau correlation between two rankings vectors.
+
+Parameters
+----------
+    x : ndarray
+        First vector of ranks.
+
+    y : ndarray
+        Second vector of ranks.
+
+Returns
+-------
+    float
+        Correlation between two rankings vectors.
+"""
     n = len(x)
     res = 0
     for j in range(n):
@@ -60,9 +120,21 @@ def kendall_tau(x, y):
 
 
 def goodman_kruskal_gamma(x, y):
-    '''Goodman and Kruskal gamma
-    x, y -  rank values
-    '''
+    """Calculate Goodman's and Kruskal's Gamma correlation between two rankings vectors.
+
+Parameters
+----------
+    x : ndarray
+        First vector of ranks.
+
+    y : ndarray
+        Second vector of ranks.
+
+Returns
+-------
+    float
+        Correlation between two rankings vectors.
+"""
     num = 0
     den = 0
     for i, j in permutations(range(len(x)), 2):

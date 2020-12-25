@@ -8,10 +8,36 @@ __all__ = [
 ]
 
 def equal(matrix):
+    """Calculate equal weights for given `matrix`.
+
+Parameters
+----------
+    matrix : ndarray
+        Decision matrix / alternatives data.
+        Alternatives are in rows and Criteria are in columns.
+
+Returns
+-------
+    ndarray
+        Vector of weights.
+"""
     N = matrix.shape[1]
     return np.ones(N) / N
 
 def entropy(matrix):
+    """Calculate weights for given `matrix` using entropy method.
+
+Parameters
+----------
+    matrix : ndarray
+        Decision matrix / alternatives data.
+        Alternatives are in rows and Criteria are in columns.
+
+Returns
+-------
+    ndarray
+        Vector of weights.
+"""
     m, n = matrix.shape
     nmatrix = normalize_matrix(matrix, sum_normalization, None)
     entropies = np.empty(n)
@@ -28,6 +54,19 @@ def entropy(matrix):
 
 
 def standard_deviation(matrix):
+    """Calculate weights for given `matrix` using std method.
+
+Parameters
+----------
+    matrix : ndarray
+        Decision matrix / alternatives data.
+        Alternatives are in rows and Criteria are in columns.
+
+Returns
+-------
+    ndarray
+        Vector of weights.
+"""
     m, n = matrix.shape
     std = np.std(matrix, axis=0)
     return std / np.sum(std)

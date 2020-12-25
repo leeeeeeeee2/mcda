@@ -7,11 +7,12 @@ from .mcda_method import MCDA_method
 
 class PROMEHTEE_II(MCDA_method):
     def __init__(self, preference_function):
-        """
-Create PROMEHTEE_II method object, using `preference_function` and `q_mod`.
+        """Create PROMEHTEE_II method object, with `preference_function`.
 
-Args:
-    `preference_function`: name of the preference function ('usual', 'ushape', 'vshape', 'level', 'vshape_2')
+Parameters
+----------
+    preference_function: str
+        Name of the preference function ('usual', 'ushape', 'vshape', 'level', 'vshape_2')
 """
         self.pf = getattr(PROMEHTEE_II._PreferenceFunctions, preference_function)
 
@@ -19,18 +20,42 @@ Args:
         """
 Rank alternatives from decision matrix `matrix`, with criteria weights `weights` and criteria types `types`.
 
-Args:
-    `matrix`: ndarray represented decision matrix.
-            Alternatives are in rows and Criteria are in columns.
-    `weights`: ndarray, represented criteria weights.
-    `types`: ndarray which contains 1 if criteria is profit and -1 if criteria is cost for each criteria in `matrix`.
-    `p`: ndarray with p values for every criterion
-    `q`: ndarray with q values for every criterion
-    `promethee_I`: bool, if True then returns F+ and F- (like in promethee I).
-    `*args` and `**kwargs` are necessary for methods which reqiure some additional data.
+Parameters
+----------
+    matrix : ndarray
+        Decision matrix / alternatives data.
+        Alternatives are in rows and Criteria are in columns.
 
-Returns:
-    Ranking of alternatives. Better alternatives have higher values.
+    weights : ndarray
+        Criteria weights. Sum of the weights should be 1. (e.g. sum(weights) == 1)
+
+    types : ndarray
+        Array with definitions of criteria types:
+        1 if criteria is profit and -1 if criteria is cost for each criteria in `matrix`.
+
+    p : ndarray
+        p values for each criterion
+
+    q : ndarray
+        q values for each criterion
+
+    promethee_I : bool
+        If True then returns F+ and F- (like in promethee I).
+
+    *args and **kwargs are necessary for methods which reqiure some additional data.
+
+Returns
+-------
+    If `promethee_I` is True:
+    ndarray
+        Positive flow
+
+    ndarray
+        Negative flow
+
+    If `promethee_I` is False:
+    ndarray
+        Preference values of alternatives. Better alternatives have higher values.
 """
         pf = self.pf
         if p is None and q is None:

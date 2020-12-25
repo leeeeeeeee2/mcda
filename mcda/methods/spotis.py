@@ -7,24 +7,35 @@ from .mcda_method import MCDA_method
 
 class SPOTIS(MCDA_method):
     def __init__(self):
-        """
-Create SPOTIS method object.
-"""
+        """Create SPOTIS method object."""
         pass
 
     def __call__(self, matrix, weights, types, *args, bounds=None, **kwargs):
-        """
-Rank alternatives from decision matrix `matrix`, with criteria weights `weights` and criteria types `types`.
+        """Rank alternatives from decision matrix `matrix`, with criteria weights `weights` and criteria types `types`.
 
-Args:
-    `matrix`: ndarray represented decision matrix.
-            Alternatives are in rows and Criteria are in columns.
-    `weights`: ndarray, represented criteria weights.
-    `types`: ndarray which contains 1 if criteria is profit and -1 if criteria is cost for each criteria in `matrix`.
-    `bounds`: None or ndarray. If None bounds of criteria (min and max) would be extracted from decision matrix.
+Parameters
+----------
+    matrix : ndarray
+        Decision matrix / alternatives data.
+        Alternatives are in rows and Criteria are in columns.
 
-Returns:
-    Ranking of alternatives. Better alternatives have smaller values.
+    weights : ndarray
+        Criteria weights. Sum of the weights should be 1. (e.g. sum(weights) == 1)
+
+    types : ndarray
+        Array with definitions of criteria types:
+        1 if criteria is profit and -1 if criteria is cost for each criteria in `matrix`.
+
+    bounds : None or ndarray
+        One row should contain min and max values for one criterion.
+        If None bounds of criteria (min and max) would be extracted from decision matrix.
+
+    *args and **kwargs are necessary for methods which reqiure some additional data.
+
+Returns
+-------
+    ndarray
+        Preference values for alternatives. Better alternatives have smaller values.
 """
         SPOTIS._validate_input_data(matrix, weights, types)
 

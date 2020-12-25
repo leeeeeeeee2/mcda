@@ -44,19 +44,32 @@ def logaritmic_normalization(x, cost=False):
 
 
 def normalize_matrix(matrix, method, criteria_types):
-    """
-Normalize each column in `matrix`, using `normalization` function according `criteria_types`.
+    """Normalize each column in `matrix`, using `normalization` function according `criteria_types`.
 
-Args:
-    `matrix`: numpy ndarray which represents decision matrix. The rows are considered as alternatives and the columns are considered as criteria.
-    `normalization`: function which would be used for normalize `matrix` columns. It should match signature `foo(x, cost)`, where `x` is a vector which would be normalized and `cost` is a bool variable which says if `x` is a cost or profit criteria.
-    `criteria_types`: None or iterable object (e.g. list or tuple) which contains 1 if criteria is profit and -1 if criteria is cost for each criteria in `matrix`. If None all criteria are considered as profit
+Parameters
+----------
+    matrix : ndarray
+        Decision matrix representation.
+        The rows are considered as alternatives and the columns are considered as criteria.
 
-Returns:
-    Normalized copy of the input matrix.
+    normalization : callable
+        Function which should be used for normalize `matrix` columns.
+        It should match signature `foo(x, cost)`, where `x` is a vector which would be normalized and `cost` is a bool variable which says if `x` is a cost or profit criteria.
 
-Raises:
-    ValueError: if `criteria_types` and `matrix` has different number of criteria.
+    criteria_types : None or ndarray
+        Describes criteria types.
+        1 if criteria is profit and -1 if criteria is cost for each criteria in `matrix`.
+        If None all criteria are considered as profit
+
+Returns
+-------
+    ndarray
+        Normalized copy of the input matrix.
+
+Raises
+------
+    ValueError
+        If `criteria_types` and `matrix` has different number of criteria.
 """
     if criteria_types is None:
         nmatrix = matrix.astype('float')

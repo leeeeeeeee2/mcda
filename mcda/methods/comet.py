@@ -24,20 +24,24 @@ def _TFN(a, m, b):
 
 class COMET(MCDA_method):
     def __init__(self, cvalues, rate_function=None, expert_function=None):
-        """
-Initialize COMET model. It creates CO and rank them using `ranking_method`.
+        """Initialize COMET model. It creates CO and rank them using `ranking_method`.
 
-Args:
-    `cvalues`:  ndarray, each row represent characteristic values for each criteria.
-    `rankings_method`: Function to rate CO without creating MEJ.
-                       Matrix with CO as rows is passed as an argument
-                       Vector with rates should be retrurn. Better CO should has higher values.
-    `expert_function`: Function which would be used to compare CO on MEJ creation.
-                       It should fulfill this requirments:
-                       CO to compare are passed as arguments (a, b)
-                       if a is better then b return 1,
-                       if b is better then a return 0,
-                       if this CO are equaly prefered return 0.5
+Parameters
+----------
+    cvalues : ndarray or list of lists
+        Each row represent characteristic values for each criteria.
+
+    rankings_method : callable
+        Function to rate CO without creating MEJ. Matrix with CO as rows is passed as an argument Vector with rates should be retrurn. Better CO should has higher values.
+
+    expert_function : callable
+        Function which would be used to compare CO on MEJ creation.
+        It should fulfill this requirments:
+           CO to compare are passed as arguments (a, b)
+           if a is better then b return 1,
+           if b is better then a return 0,
+           if this CO are equaly prefered return 0.5
+
     If both ranking_method and expert_function are provided, expert_function is preffered.
 """
         co = product(*cvalues)
@@ -69,16 +73,20 @@ Args:
 
 
     def __call__(self, alts, *args, **kwargs):
-        """
-Rank alternatives from decision matrix `matrix`, with criteria weights `weights` and criteria types `types`.
+        """Rank alternatives from decision matrix `matrix`, with criteria weights `weights` and criteria types `types`.
 
-Args:
-    `alts`: ndarray represented decision matrix.
-            Alternatives are in rows and Criteria are in columns.
-    `*args` and `**kwargs` are necessary for methods which reqiure some additional data.
+Parameters
+----------
+    alts : ndarray
+        Decision matrix / alternatives data.
+        Alternatives are in rows and Criteria are in columns.
 
-Returns:
-    Preference values for alternatives. Better alternatives have higher values.
+    *args and **kwargs are necessary for methods which reqiure some additional data.
+
+Returns
+-------
+    ndarray
+        Preference values for alternatives. Better alternatives have higher values.
 """
         tfns = self.tfns
 
@@ -141,7 +149,7 @@ Returns:
 
     @staticmethod
     def manual_expert(criteria_names):
-        '''Returns function for manual rating characteristic objects.'''
+        """Returns function for manual rating characteristic objects."""
         def manual(a, b):
             # Print CO data
             print(f'{" "*15} | {"a":>9} | {"b":>9}')
@@ -159,7 +167,7 @@ Returns:
 
     @staticmethod
     def topsis_rate_function(weights, types):
-        '''Return function to rate characteristic objects with TOPSIS'''
+        """Returns function to rate characteristic objects with TOPSIS"""
         topsis = TOPSIS()
         def topsis_rate(co):
             return topsis(co, weights, types)
