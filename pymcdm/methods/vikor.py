@@ -4,6 +4,13 @@ import numpy as np
 from .. import normalizations
 from .mcda_method import MCDA_method
 
+def _fake_normalization(x, cost=False):
+    if cost:
+        return np.max(x) - x
+    else:
+        return x
+
+
 class VIKOR(MCDA_method):
     def __init__(self, normalization_function=None):
         """Create VIKOR method object, using normaliztion `normalization_function`.
@@ -53,7 +60,8 @@ Returns
         if self.normalization is not None:
             nmatrix = normalizations.normalize_matrix(matrix, self.normalization, types)
         else:
-            nmatrix = matrix.astype('float')
+            print('here')
+            nmatrix = normalizations.normalize_matrix(matrix, _fake_normalization, types)
         S, R, Q = VIKOR._vikor(nmatrix, weights, v)
         if return_all:
             return S, R, Q
