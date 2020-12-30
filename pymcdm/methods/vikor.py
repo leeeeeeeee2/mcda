@@ -60,7 +60,6 @@ Returns
         if self.normalization is not None:
             nmatrix = normalizations.normalize_matrix(matrix, self.normalization, types)
         else:
-            print('here')
             nmatrix = normalizations.normalize_matrix(matrix, _fake_normalization, types)
         S, R, Q = VIKOR._vikor(nmatrix, weights, v)
         if return_all:

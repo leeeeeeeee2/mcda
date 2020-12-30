@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="pymcdm",
-    version="1.0.0",
+    version="1.0.1a",
     author="Andrii Shekhovtsov",
     author_email="andrii-shekhovtsov@zut.edu.pl",
     description="Python library for Multi-Criteria Decision-Making",
