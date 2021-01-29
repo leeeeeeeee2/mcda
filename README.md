@@ -29,3 +29,6 @@ This repo contains several methods which can be useful for solving MCDA problems
 * Rank Similarity Coefficient
 * Kendall Tau
 * Goodman and Kruskal Gamma
+
+### Helpers
+* rankdata
