@@ -46,6 +46,12 @@ Parameters
 
     If both ranking_method and expert_function are provided, expert_function is preffered.
 """
+        if np.any(np.min(cvalues, axis=1) == np.max(cvalues, axis=1)):
+            eq = np.arange(cvalues.shape[0])[np.min(cvalues, axis=1) == np.max(cvalues, axis=1)]
+            raise ValueError(
+                    f'Characteristic values for criteria {eq} are equal. Consider choose anoter set of characteristic values for this criteria.'
+                )
+
         co = product(*cvalues)
         co = np.array(list(co))
 
@@ -75,7 +81,7 @@ Parameters
 
 
     def __call__(self, alts, *args, **kwargs):
-        """Rank alternatives from decision matrix `matrix`, with criteria weights `weights` and criteria types `types`.
+        """Rank alternatives from decision matrix `alts`, with criteria weights `weights` and criteria types `types`.
 
 Parameters
 ----------
