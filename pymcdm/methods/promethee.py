@@ -7,7 +7,7 @@ from .. import normalizations
 from .mcda_method import MCDA_method
 
 
-class PROMEHTEE_II(MCDA_method):
+class PROMETHEE_II(MCDA_method):
     def __init__(self, preference_function):
         """Create PROMEHTEE_II method object, with `preference_function`.
 
@@ -16,7 +16,7 @@ Parameters
     preference_function: str
         Name of the preference function ('usual', 'ushape', 'vshape', 'level', 'vshape_2')
 """
-        self.pf = getattr(PROMEHTEE_II._PreferenceFunctions, preference_function)
+        self.pf = getattr(PROMETHEE_II._PreferenceFunctions, preference_function)
 
     def __call__(self, matrix, weights, types, *args, p=None, q=None, promethee_I=False, **kwargs):
         """
@@ -69,7 +69,7 @@ Returns
         else:
             pfs = (partial(pf, p=p_, q=q_) for p_, q_ in zip(p, q))
 
-        Fp, Fm, FI = PROMEHTEE_II._promethee(matrix, weights, types, pfs)
+        Fp, Fm, FI = PROMETHEE_II._promethee(matrix, weights, types, pfs)
         if promethee_I:
             return Fp, Fm
         else:
