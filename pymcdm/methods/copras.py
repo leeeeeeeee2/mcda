@@ -32,6 +32,8 @@ Returns
         Preference values for alternatives. Better alternatives have higher values.
 """
         COPRAS._validate_input_data(matrix, weights, types)
+        if np.all(types == 1.0):
+            raise ValueError('types array contains only profit criteria. COPRAS method requires at least one cost criteria.')
         return COPRAS._copras(matrix, weights, types)
 
     @staticmethod

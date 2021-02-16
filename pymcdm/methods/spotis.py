@@ -4,13 +4,12 @@ import numpy as np
 from .. import normalizations
 from .mcda_method import MCDA_method
 
-
 class SPOTIS(MCDA_method):
     def __init__(self):
         """Create SPOTIS method object."""
         pass
 
-    def __call__(self, matrix, weights, types, *args, bounds=None, **kwargs):
+    def __call__(self, matrix, weights, types, bounds, *args, **kwargs):
         """Rank alternatives from decision matrix `matrix`, with criteria weights `weights` and criteria types `types`.
 
 Parameters
@@ -26,9 +25,8 @@ Parameters
         Array with definitions of criteria types:
         1 if criteria is profit and -1 if criteria is cost for each criteria in `matrix`.
 
-    bounds : None or ndarray
-        One row should contain min and max values for one criterion.
-        If None bounds of criteria (min and max) would be extracted from decision matrix.
+    bounds : ndarray
+        Each row should contain min and max values for each criterion. Min and max should be different values!
 
     *args and **kwargs are necessary for methods which reqiure some additional data.
 
@@ -38,10 +36,11 @@ Returns
         Preference values for alternatives. Better alternatives have smaller values.
 """
         SPOTIS._validate_input_data(matrix, weights, types)
-
-        # If bounds is not given, determine it based on decision matrix
-        if bounds is None:
-            bounds = np.array((np.min(matrix, axis=0), np.max(matrix, axis=0))).T
+        if np.any(bounds[:, 0] == bounds[:, 1]):
+            eq = np.arange(bounds.shape[0])[bounds[:, 0] == bounds[:, 1]]
+            raise ValueError(
+                    f'Bounds for criteria {eq} are equal. Consider changing min and max values for this criterion, delete this criterion or use another MCDA method.'
+                )
 
         # Determine Ideal Solution Point based on criteria bounds
         isp = bounds[np.arange(bounds.shape[0]), ((types+1)//2).astype('int')]

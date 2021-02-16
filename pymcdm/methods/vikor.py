@@ -17,10 +17,13 @@ class VIKOR(MCDA_method):
 
 Parameters
 ----------
-    normalization_function : callable
+    normalization_function : None or callable
         Function which should be used to normalize `matrix` columns. It should match signature `foo(x, cost)`, where `x` is a vector which should be normalized and `cost` is a bool variable which says if `x` is a cost or profit criterion.
 """
-        self.normalization = normalization_function
+        if normalization_function is None:
+            self.normalization = _fake_normalization
+        else:
+            self.normalization = normalization_function
 
     def __call__(self, matrix, weights, types, *args, v=0.5, return_all=False, **kwargs):
         """Rank alternatives from decision matrix `matrix`, with criteria weights `weights` and criteria types `types`.
@@ -57,10 +60,7 @@ Returns
         S, R, Q preference values (see VIKOR algorithm explanation).
 """
         VIKOR._validate_input_data(matrix, weights, types)
-        if self.normalization is not None:
-            nmatrix = normalizations.normalize_matrix(matrix, self.normalization, types)
-        else:
-            nmatrix = normalizations.normalize_matrix(matrix, _fake_normalization, types)
+        nmatrix = normalizations.normalize_matrix(matrix, self.normalization, types)
         S, R, Q = VIKOR._vikor(nmatrix, weights, v)
         if return_all:
             return S, R, Q
@@ -81,6 +81,12 @@ Returns:
 """
         fstar = np.max(matrix, axis=0)
         fminus = np.min(matrix, axis=0)
+
+        if np.any(fstar == fminus):
+            eq = np.arange(fstar.shape[0])[fstar == fminus]
+            raise ValueError(
+                f'Criteria with indexes {eq} contains equal values for all alternatives. VIKOR method could not be applied in this case. Consider removing this criteria from the decision matrix or use another MCDA method.'
+            )
 
         weighted_ff = weights * ((fstar - matrix)/(fstar - fminus))
         S = np.sum(weighted_ff, axis=1)
