@@ -33,8 +33,11 @@ Parameters
     cvalues : ndarray or list of lists
         Each row represent characteristic values for each criteria.
 
-    rankings_method : callable
+    rate_function : callable
         Function to rate CO without creating MEJ. Matrix with CO as rows is passed as an argument Vector with rates should be retrurn. Better CO should has higher values.
+
+        Signature of the function should be as followed:
+            rate_function(co: np.array) -> np.array
 
     expert_function : callable
         Function which would be used to compare CO on MEJ creation.
@@ -46,11 +49,17 @@ Parameters
 
     If both ranking_method and expert_function are provided, expert_function is preffered.
 """
-        if np.any(np.min(cvalues, axis=1) == np.max(cvalues, axis=1)):
-            eq = np.arange(cvalues.shape[0])[np.min(cvalues, axis=1) == np.max(cvalues, axis=1)]
-            raise ValueError(
-                    f'Characteristic values for criteria {eq} are equal. Consider choose anoter set of characteristic values for this criteria.'
-                )
+        # Validate input
+        for i, cv in enumerate(cvalues):
+            if len(cv) < 2:
+                raise ValueError(
+                    f'You should provide minimum 2 characteristic value for each criterion. Check criterion with index {i}.'
+                    )
+            # Check if sorted
+            if any(cv[i] >= cv[i+1] for i in range(len(cv)-1)):
+                raise ValueError(
+                        f'Characteristic values must be sorted in ascending order and does not contain repeated elements. Check criterion with index {i}.'
+                    )
 
         co = product(*cvalues)
         co = np.array(list(co))
@@ -62,6 +71,10 @@ Parameters
         elif rate_function is not None:
             self.mej = None
             sj = rate_function(co)
+            if sj.shape[0] != co.shape[0]:
+                raise ValueError(
+                        f'Rate function must returns vector with same length as number of characteristic objects. Expected length: {co.shape[0]}, but returned vector has length {sj.shape[0]}.'
+                    )
         else:
             raise ValueError('rate_function or expert_function should be provided.')
 
@@ -69,12 +82,13 @@ Parameters
 
         delta = 1 / (k - 1)
 
-        p = np.empty(sj.size)
+        p = np.empty(co.shape[0])
         for i in range(1, k):
             ind = sj == np.max(sj)
             p[ind] = (k - i) / (k - 1)
             sj[ind] = 0
 
+        self.criterion_number = len(cvalues)
         self.cvalues = cvalues
         self.p = p
         self.tfns = [COMET._make_tfns(chv) for chv in cvalues]
@@ -96,6 +110,11 @@ Returns
     ndarray
         Preference values for alternatives. Better alternatives have higher values.
 """
+        if self.criterion_number != alts.shape[1]:
+            raise ValueError(
+                    'Number of criteria in decision matrix must be equal to number of criteria in characteristic values.'
+                )
+
         tfns = self.tfns
 
         pref_level_vectors = [[tfn(values) for tfn in tfns_icrit]

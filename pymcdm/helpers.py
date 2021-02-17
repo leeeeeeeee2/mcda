@@ -55,7 +55,7 @@ def rankdata(a, reverse=False):
             v = c[k]
             rv[k] = (2*i + v - 1)/2
             i += v
-    return np.array([rv[k] for k in a])
+    return np.array([rv[k] for k in a], dtype='float')
 
 
 def rrankdata(a):
