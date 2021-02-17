@@ -1,3 +1,5 @@
+# Copyright (c) 2021 Andrii Shekhovtsov
+
 import numpy as np
 from collections import Counter
 
