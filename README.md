@@ -5,7 +5,7 @@ Python 3 library for solving multi-criteria decision-making (MCDM) problems.
 
 # Installation
 
-You could download and install `pymcdm` library using pip:
+You can download and install `pymcdm` library using pip:
 
 ```Bash
 pip install pymcdm
@@ -52,7 +52,7 @@ The library contains:
 Here's a small example of how use this library to solve MCDM problem.
 For more examples with explanation see [examples](https://gitlab.com/shekhand/mcda/-/blob/master/examples/examples.ipynb).
 
-```Python
+```python
 import numpy as np
 from pymcdm.methods import TOPSIS
 from pymcdm.helpers import rrankdata
@@ -82,7 +82,7 @@ for r, p in zip(ranking, pref):
 
 And the output of this example (numbers are rounded):
 
-```Bash
+```bash
 3 0.6126
 4 0.0
 2 0.7829
