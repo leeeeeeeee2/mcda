@@ -78,12 +78,10 @@ Parameters
         else:
             raise ValueError('rate_function or expert_function should be provided.')
 
-        k = np.unique(sj).size
+        k = np.unique(sj).shape[0]
 
-        delta = 1 / (k - 1)
-
-        p = np.empty(co.shape[0])
-        for i in range(1, k+1):
+        p = np.zeros(sj.shape[0], dtype=float)
+        for i in range(1, k):
             ind = sj == np.max(sj)
             p[ind] = (k - i) / (k - 1)
             sj[ind] = 0
