@@ -83,7 +83,7 @@ Parameters
         delta = 1 / (k - 1)
 
         p = np.empty(co.shape[0])
-        for i in range(1, k):
+        for i in range(1, k+1):
             ind = sj == np.max(sj)
             p[ind] = (k - i) / (k - 1)
             sj[ind] = 0
