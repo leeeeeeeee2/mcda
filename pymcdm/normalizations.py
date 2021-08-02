@@ -1,4 +1,5 @@
 # Copyright (c) 2020 Andrii Shekhovtsov
+# Copyright (c) 2021 Bartłomiej Kizielewicz
 
 import numpy as np
 
@@ -9,8 +10,10 @@ __all__ = [
     'vector_normalization',
     'logaritmic_normalization',
     'linear_normalization',
+    'nonlinear_normalization',
     'normalize_matrix'
 ]
+
 
 def minmax_normalization(x, cost=False):
     if np.min(x) == np.max(x): # If all values are equal
@@ -50,6 +53,12 @@ def linear_normalization(x, cost=False):
     if cost:
         return np.min(x) / x
     return x / np.max(x)
+
+
+def nonlinear_normalization(x, cost=False):
+    if cost:
+        return (np.min(x) / x) ** 3
+    return (x / np.max(x)) ** 2
 
 
 def normalize_matrix(matrix, method, criteria_types):
