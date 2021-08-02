@@ -2,14 +2,17 @@
 # Copyright (c) 2021 Bartłomiej Kizielewicz
 
 import numpy as np
-from .normalizations import sum_normalization, linear_normalization, normalize_matrix
+from .normalizations import minmax_normalization, sum_normalization, linear_normalization, normalize_matrix
+from .correlations import correlation_matrix, pearson
 
 __all__ = [
     'equal',
     'entropy',
     'standard_deviation',
     'merec',
+    'critic',
 ]
+
 
 def equal(matrix):
     """Calculate equal weights for given `matrix`.
@@ -27,6 +30,7 @@ Returns
 """
     N = matrix.shape[1]
     return np.ones(N) / N
+
 
 def entropy(matrix):
     """Calculate weights for given `matrix` using entropy method.
@@ -103,3 +107,23 @@ def merec(matrix, types):
     E = np.sum(np.abs(S_prim.T - S), axis=1)
     return E / np.sum(E)
 
+
+def critic(matrix):
+    """Calculate weights for given `matrix` using CRITIC method.
+
+    Parameters
+    ----------
+        matrix : ndarray
+            Decision matrix / alternatives data.
+            Alternatives are in rows and Criteria are in columns.
+
+    Returns
+    -------
+        ndarray
+            Vector of weights.
+    """
+    nmatrix = normalize_matrix(matrix, minmax_normalization, None)
+    std = np.std(nmatrix, axis=0, ddof=1)
+    coef = correlation_matrix(nmatrix, pearson, True)
+    C = std * np.sum(1 - coef, axis=0)
+    return C / np.sum(C)
