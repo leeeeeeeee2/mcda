@@ -4,6 +4,7 @@
 import numpy as np
 from .normalizations import minmax_normalization, sum_normalization, linear_normalization, normalize_matrix
 from .correlations import correlation_matrix, pearson
+from scipy.linalg import null_space
 
 __all__ = [
     'equal',
@@ -11,7 +12,15 @@ __all__ = [
     'standard_deviation',
     'merec',
     'critic',
+    'cilos',
 ]
+
+
+def _fake_normalization(x, cost=False):
+    if cost:
+        return np.min(x) / x
+    else:
+        return x
 
 
 def equal(matrix):
@@ -127,3 +136,29 @@ def critic(matrix):
     coef = correlation_matrix(nmatrix, pearson, True)
     C = std * np.sum(1 - coef, axis=0)
     return C / np.sum(C)
+
+
+def cilos(matrix, types):
+    """Calculate weights for given `matrix` using CILOS method.
+
+    Parameters
+    ----------
+        matrix : ndarray
+            Decision matrix / alternatives data.
+            Alternatives are in rows and Criteria are in columns.
+        types : ndarray
+            Array with definitions of criteria types:
+            1 if criteria is profit and -1 if criteria is cost for each criteria in `matrix`.
+
+    Returns
+    -------
+        ndarray
+            Vector of weights.
+    """
+    nmatrix = normalize_matrix(matrix, _fake_normalization, types)
+    nmatrix = normalize_matrix(nmatrix, sum_normalization, None)
+    A = nmatrix[np.argmax(nmatrix, axis=0)]
+    P = (np.diag(A) - A) / np.diag(A)
+    F = P - np.diag(np.sum(P, axis=0))
+    q = null_space(F)
+    return (q / np.sum(q)).flatten()
