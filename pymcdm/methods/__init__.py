@@ -11,3 +11,4 @@ from .edas import EDAS
 from .mabac import MABAC
 from .mairca import MAIRCA
 from .marcos import MARCOS
+from .ocra import OCRA
