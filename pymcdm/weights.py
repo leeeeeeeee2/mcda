@@ -13,6 +13,7 @@ __all__ = [
     'merec',
     'critic',
     'cilos',
+    'idocriw',
 ]
 
 
