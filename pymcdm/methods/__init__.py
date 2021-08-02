@@ -6,3 +6,4 @@ from .comet import COMET
 from .spotis import SPOTIS
 from .aras import ARAS
 from .cocoso import COCOSO
+from .codas import CODAS
