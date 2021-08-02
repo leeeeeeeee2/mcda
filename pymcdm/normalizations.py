@@ -8,6 +8,7 @@ __all__ = [
     'sum_normalization',
     'vector_normalization',
     'logaritmic_normalization',
+    'linear_normalization',
     'normalize_matrix'
 ]
 
@@ -43,6 +44,12 @@ def logaritmic_normalization(x, cost=False):
     if cost:
         return (1 - (np.log(x) / np.log(prod))) / (x.shape[0] - 1)
     return np.log(x) / np.log(prod)
+
+
+def linear_normalization(x, cost=False):
+    if cost:
+        return np.min(x) / x
+    return x / np.max(x)
 
 
 def normalize_matrix(matrix, method, criteria_types):
