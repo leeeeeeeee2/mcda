@@ -162,3 +162,25 @@ def cilos(matrix, types):
     F = P - np.diag(np.sum(P, axis=0))
     q = null_space(F)
     return (q / np.sum(q)).flatten()
+
+
+def idocriw(matrix, types):
+    """Calculate weights for given `matrix` using IDOCRIW method.
+
+    Parameters
+    ----------
+        matrix : ndarray
+            Decision matrix / alternatives data.
+            Alternatives are in rows and Criteria are in columns.
+        types : ndarray
+            Array with definitions of criteria types:
+            1 if criteria is profit and -1 if criteria is cost for each criteria in `matrix`.
+
+    Returns
+    -------
+        ndarray
+            Vector of weights.
+    """
+    W = entropy(matrix)
+    q = cilos(matrix, types)
+    return (q * W) / np.sum(q * W, axis=0)
