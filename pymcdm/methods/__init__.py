@@ -4,3 +4,4 @@ from .copras import COPRAS
 from .promethee import PROMETHEE_II
 from .comet import COMET
 from .spotis import SPOTIS
+from .aras import ARAS
