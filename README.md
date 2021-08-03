@@ -2,7 +2,7 @@
 
 Python 3 library for solving multi-criteria decision-making (MCDM) problems.
 
-
+___
 # Installation
 
 You can download and install `pymcdm` library using pip:
@@ -10,29 +10,44 @@ You can download and install `pymcdm` library using pip:
 ```Bash
 pip install pymcdm
 ```
-
+___
 # Available methods
 
 The library contains:
 * MCDA methods:
-    * TOPSIS
-    * VIKOR
-    * COPRAS
-    * PROMETHEE I and II
-    * COMET
-    * SPOTIS
+  * TOPSIS
+  * VIKOR
+  * COPRAS
+  * PROMETHEE I and II
+  * COMET
+  * SPOTIS
+  * ARAS
+  * COCOSO
+  * CODAS
+  * EDAS
+  * MABAC
+  * MAIRCA
+  * MARCOS
+  * OCRA
 
 * Weighting methods:
-    * Equal weights
-    * Entropy method
-    * Std method
-
+  * Equal weights
+  * Entropy method
+  * Std method
+  * MEREC method
+  * CRITIC method
+  * CILOS method
+  * IDOCRIW method
+  
 * Normalization methods:
-    * Linear
-    * Max
-    * Sum
-    * Vector
-    * Logarithmic
+  * Linear
+  * Max
+  * Sum
+  * Vector
+  * Logarithmic
+  * Linear
+  * Nonlinear
+  * Enhanced accuracy
 
 * Correlation coefficients:
     * Spearman
@@ -46,7 +61,7 @@ The library contains:
     * rankdata
     * rrankdata
 
-
+___
 # Usage example
 
 Here's a small example of how use this library to solve MCDM problem.
