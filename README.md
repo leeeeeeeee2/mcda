@@ -30,6 +30,7 @@ The library contains:
   * MARCOS
   * OCRA
 
+
 * Weighting methods:
   * Equal weights
   * Entropy method
@@ -38,7 +39,8 @@ The library contains:
   * CRITIC method
   * CILOS method
   * IDOCRIW method
-  
+ 
+ 
 * Normalization methods:
   * Linear
   * Max
@@ -49,6 +51,7 @@ The library contains:
   * Nonlinear
   * Enhanced accuracy
 
+
 * Correlation coefficients:
     * Spearman
     * Pearson
@@ -56,6 +59,7 @@ The library contains:
     * Rank Similarity Coefficient
     * Kendall Tau
     * Goodman and Kruskal Gamma
+
 
 * Helpers
     * rankdata
