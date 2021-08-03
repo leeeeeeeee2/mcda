@@ -29,6 +29,7 @@ The library contains:
   * MAIRCA
   * MARCOS
   * OCRA
+  * MOORA
 
 
 * Weighting methods:
