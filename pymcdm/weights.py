@@ -14,6 +14,7 @@ __all__ = [
     'critic',
     'cilos',
     'idocriw',
+    'angle'
 ]
 
 
@@ -185,3 +186,26 @@ def idocriw(matrix, types):
     W = entropy(matrix)
     q = cilos(matrix, types)
     return (q * W) / np.sum(q * W, axis=0)
+
+
+def angle(matrix):
+    """Calculate weights for given `matrix` using angle method.
+
+    Parameters
+    ----------
+        matrix : ndarray
+            Decision matrix / alternatives data.
+            Alternatives are in rows and Criteria are in columns.
+
+    Returns
+    -------
+        ndarray
+            Vector of weights.
+    """
+    nmatrix = normalize_matrix(matrix, sum_normalization, None)
+    n, m = nmatrix.shape
+    un = np.zeros(m)
+    add_col = np.ones(n) * 1 / m
+    for i, vec in enumerate(nmatrix.T):
+        un[i] = np.arccos(np.sum(vec / m) / (np.sqrt(np.sum(vec ** 2)) * np.sqrt(np.sum(add_col ** 2))))
+    return un / np.sum(un)

@@ -40,6 +40,7 @@ The library contains:
   * CRITIC method
   * CILOS method
   * IDOCRIW method
+  * Angle method
  
  
 * Normalization methods:
