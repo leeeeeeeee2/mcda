@@ -14,7 +14,8 @@ __all__ = [
     'critic',
     'cilos',
     'idocriw',
-    'angle'
+    'angle',
+    'gini_weights'
 ]
 
 
@@ -209,3 +210,14 @@ def angle(matrix):
     for i, vec in enumerate(nmatrix.T):
         un[i] = np.arccos(np.sum(vec / m) / (np.sqrt(np.sum(vec ** 2)) * np.sqrt(np.sum(add_col ** 2))))
     return un / np.sum(un)
+
+
+def gini_weights(matrix, *args, **kwargs):
+    n, m = matrix.shape
+    weights = np.zeros(m)
+    for i in range(m):
+        values = np.zeros(n)
+        for j in range(n):
+            values[j] = np.sum(np.abs(matrix[j, i] - matrix[:, i]) / (2 * n ** 2 * (np.sum(matrix[:, i]) / n)))
+        weights[i] = np.sum(values)
+    return weights / np.sum(weights)

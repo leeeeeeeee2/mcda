@@ -41,6 +41,7 @@ The library contains:
   * CILOS method
   * IDOCRIW method
   * Angle method
+  * Gini method
  
  
 * Normalization methods:
