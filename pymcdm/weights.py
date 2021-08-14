@@ -7,14 +7,14 @@ from .correlations import correlation_matrix, pearson
 from scipy.linalg import null_space
 
 __all__ = [
-    'equal',
-    'entropy',
-    'standard_deviation',
-    'merec',
-    'critic',
-    'cilos',
-    'idocriw',
-    'angle',
+    'equal_weights',
+    'entropy_weights',
+    'standard_deviation_weights',
+    'merec_weights',
+    'critic_weights',
+    'cilos_weights',
+    'idocriw_weights',
+    'angle_weights',
     'gini_weights'
 ]
 
@@ -26,7 +26,7 @@ def _fake_normalization(x, cost=False):
         return x
 
 
-def equal(matrix):
+def equal_weights(matrix, *args, **kwargs):
     """Calculate equal weights for given `matrix`.
 
 Parameters
@@ -44,7 +44,7 @@ Returns
     return np.ones(N) / N
 
 
-def entropy(matrix):
+def entropy_weights(matrix, *args, **kwargs):
     """Calculate weights for given `matrix` using entropy method.
 
 Parameters
@@ -73,7 +73,7 @@ Returns
     return E / np.sum(E)
 
 
-def standard_deviation(matrix):
+def standard_deviation_weights(matrix, *args, **kwargs):
     """Calculate weights for given `matrix` using std method.
 
 Parameters
@@ -92,7 +92,7 @@ Returns
     return std / np.sum(std)
 
 
-def merec(matrix, types):
+def merec_weights(matrix, types, *args, **kwargs):
     """Calculate weights for given `matrix` using MEREC method.
 
     Parameters
@@ -120,7 +120,7 @@ def merec(matrix, types):
     return E / np.sum(E)
 
 
-def critic(matrix):
+def critic_weights(matrix, *args, **kwargs):
     """Calculate weights for given `matrix` using CRITIC method.
 
     Parameters
@@ -141,7 +141,7 @@ def critic(matrix):
     return C / np.sum(C)
 
 
-def cilos(matrix, types):
+def cilos_weights(matrix, types, *args, **kwargs):
     """Calculate weights for given `matrix` using CILOS method.
 
     Parameters
@@ -167,7 +167,7 @@ def cilos(matrix, types):
     return (q / np.sum(q)).flatten()
 
 
-def idocriw(matrix, types):
+def idocriw_weights(matrix, types, *args, **kwargs):
     """Calculate weights for given `matrix` using IDOCRIW method.
 
     Parameters
@@ -184,12 +184,12 @@ def idocriw(matrix, types):
         ndarray
             Vector of weights.
     """
-    W = entropy(matrix)
-    q = cilos(matrix, types)
+    W = entropy_weights(matrix)
+    q = cilos_weights(matrix, types)
     return (q * W) / np.sum(q * W, axis=0)
 
 
-def angle(matrix):
+def angle_weights(matrix, *args, **kwargs):
     """Calculate weights for given `matrix` using angle method.
 
     Parameters
@@ -213,6 +213,19 @@ def angle(matrix):
 
 
 def gini_weights(matrix, *args, **kwargs):
+    """Calculate weights for given `matrix` using gini method.
+
+    Parameters
+    ----------
+        matrix : ndarray
+            Decision matrix / alternatives data.
+            Alternatives are in rows and Criteria are in columns.
+
+    Returns
+    -------
+        ndarray
+            Vector of weights.
+    """
     n, m = matrix.shape
     weights = np.zeros(m)
     for i in range(m):
