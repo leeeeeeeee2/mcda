@@ -47,17 +47,17 @@ Returns
 def entropy_weights(matrix, *args, **kwargs):
     """Calculate weights for given `matrix` using entropy method.
 
-Parameters
-----------
-    matrix : ndarray
-        Decision matrix / alternatives data.
-        Alternatives are in rows and Criteria are in columns.
+    Parameters
+    ----------
+        matrix : ndarray
+            Decision matrix / alternatives data.
+            Alternatives are in rows and Criteria are in columns.
 
-Returns
--------
-    ndarray
-        Vector of weights.
-"""
+    Returns
+    -------
+        ndarray
+            Vector of weights.
+    """
     m, n = matrix.shape
     nmatrix = normalize_matrix(matrix, sum_normalization, None)
     entropies = np.empty(n)
@@ -76,19 +76,18 @@ Returns
 def standard_deviation_weights(matrix, *args, **kwargs):
     """Calculate weights for given `matrix` using std method.
 
-Parameters
-----------
-    matrix : ndarray
-        Decision matrix / alternatives data.
-        Alternatives are in rows and Criteria are in columns.
+    Parameters
+    ----------
+        matrix : ndarray
+            Decision matrix / alternatives data.
+            Alternatives are in rows and Criteria are in columns.
 
-Returns
--------
-    ndarray
-        Vector of weights.
-"""
-    m, n = matrix.shape
-    std = np.std(matrix, axis=0)
+    Returns
+    -------
+        ndarray
+            Vector of weights.
+    """
+    std = np.std(matrix, axis=0, ddof=1)
     return std / np.sum(std)
 
 
