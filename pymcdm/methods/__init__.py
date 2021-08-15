@@ -4,3 +4,12 @@ from .copras import COPRAS
 from .promethee import PROMETHEE_II
 from .comet import COMET
 from .spotis import SPOTIS
+from .aras import ARAS
+from .cocoso import COCOSO
+from .codas import CODAS
+from .edas import EDAS
+from .mabac import MABAC
+from .mairca import MAIRCA
+from .marcos import MARCOS
+from .ocra import OCRA
+from .moora import MOORA
