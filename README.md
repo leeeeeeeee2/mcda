@@ -51,15 +51,17 @@ The library contains:
 | -       	| Statistical variance weights                          	|    [33]    	|
   
 * Normalization methods:
-  * Linear
-  * Max
-  * Sum
-  * Vector
-  * Logarithmic
-  * Linear
-  * Nonlinear
-  * Enhanced accuracy
 
+| Method Name                        	| Reference 	|
+|------------------------------------	|:---------:	|
+| Weitendorf’s Linear Normalization  	|    [34]   	|
+| Maximum - Linear Normalization     	|    [35]   	|
+| Sum-Based Linear Normalization     	|    [36]   	|
+| Vector Normalization               	|  [36,37]  	|
+| Logarithmic Normalization          	|  [36, 37] 	|
+| Linear Normalization (Max-Min)     	|  [34,38]  	|
+| Non-linear Normalization (Max-Min) 	|    [39]   	|
+| Enhanced Accuracy Normalization    	|    [40]   	|
 
 * Correlation coefficients:
     * Spearman
@@ -142,6 +144,20 @@ The library contains:
 [32] Li, G., & Chi, G. (2009, December). A new determining objective weights method-gini coefficient weight. In 2009 First International Conference on Information Science and Engineering (pp. 3726-3729). IEEE.
 
 [33] Rao, R. V., & Patel, B. K. (2010). A subjective and objective integrated multiple attribute decision making method for material selection. Materials & Design, 31(10), 4738-4747.
+
+[34] Brauers, W. K., & Zavadskas, E. K. (2006). The MOORA method and its application to privatization in a transition economy. Control and cybernetics, 35, 445-469.
+
+[35] Jahan, A., & Edwards, K. L. (2015). A state-of-the-art survey on the influence of normalization techniques in ranking: Improving the materials selection process in engineering design. Materials & Design (1980-2015), 65, 335-342.
+
+[36] Gardziejczyk, W., & Zabicki, P. (2017). Normalization and variant assessment methods in selection of road alignment variants–case study. Journal of civil engineering and management, 23(4), 510-523.
+
+[37] Zavadskas, E. K., & Turskis, Z. (2008). A new logarithmic normalization method in games theory. Informatica, 19(2), 303-314.
+
+[38] Jahan, A., & Edwards, K. L. (2015). A state-of-the-art survey on the influence of normalization techniques in ranking: Improving the materials selection process in engineering design. Materials & Design (1980-2015), 65, 335-342.
+
+[39] Peldschus, F., Vaigauskas, E., & Zavadskas, E. K. (1983). Technologische entscheidungen bei der berücksichtigung mehrerer Ziehle. Bauplanung Bautechnik, 37(4), 173-175.
+
+[40] Zeng, Q. L., Li, D. D., & Yang, Y. B. (2013). VIKOR method with enhanced accuracy for multiple criteria decision making in healthcare management. Journal of medical systems, 37(2), 1-9.
 ___
 # Usage example
 
