@@ -15,7 +15,8 @@ __all__ = [
     'cilos_weights',
     'idocriw_weights',
     'angle_weights',
-    'gini_weights'
+    'gini_weights',
+    'variance_weights'
 ]
 
 
@@ -233,3 +234,22 @@ def gini_weights(matrix, *args, **kwargs):
             values[j] = np.sum(np.abs(matrix[j, i] - matrix[:, i]) / (2 * n ** 2 * (np.sum(matrix[:, i]) / n)))
         weights[i] = np.sum(values)
     return weights / np.sum(weights)
+
+
+def variance_weights(matrix, *args, **kwargs):
+    """Calculate weights for given `matrix` using std method.
+
+    Parameters
+    ----------
+        matrix : ndarray
+            Decision matrix / alternatives data.
+            Alternatives are in rows and Criteria are in columns.
+
+    Returns
+    -------
+        ndarray
+            Vector of weights.
+    """
+    nmatrix = normalize_matrix(matrix, minmax_normalization, None)
+    var = np.var(nmatrix, axis=0, ddof=1)
+    return var / np.sum(var)
