@@ -16,36 +16,40 @@ ___
 The library contains:
 * MCDA methods:
 
-| Acronym          	| Method Name                                                                 	|  Reference 	|
-|------------------	|-----------------------------------------------------------------------------	|:----------:	|
-| TOPSIS           	| Technique for the Order of Prioritisation by Similarity to Ideal Solution   	|     [1]    	|
-| VIKOR            	| VIseKriterijumska Optimizacija I Kompromisno Resenje                        	|     [2]    	|
-| COPRAS           	| COmplex PRoportional ASsessment                                             	|     [3]    	|
-| PROMETHEE I & II 	| Preference Ranking Organization METHod for Enrichment of Evaluations I & II 	|     [4]    	|
-| COMET            	| Characteristic Objects Method                                               	|     [5]    	|
-| SPOTIS           	| Stable Preference Ordering Towards Ideal Solution                           	|     [6]    	|
-| ARAS             	| Additive Ratio ASsessment                                                   	|    [7,8]   	|
-| COCOSO           	| COmbined COmpromise SOlution                                                	|     [9]    	|
-| CODAS            	| COmbinative Distance-based ASsessment                                       	|    [10]    	|
-| EDAS             	| Evaluation based on Distance from Average Solution                          	|   [11,12]  	|
-| MABAC            	| Multi-Attributive Border Approximation area Comparison                      	|    [13]    	|
-| MAIRCA           	| MultiAttributive Ideal-Real Comparative Analysis                            	| [14,15,16] 	|
-| MARCOS           	| Measurement Alternatives and Ranking according to COmpromise Solution       	|   [17,18]  	|
-| OCRA             	| Operational Competitiveness Ratings                                         	|   [19,20]  	|
-| MOORA            	| Multi-Objective Optimization Method by Ratio Analysis                       	|   [21,22]  	|
+ Acronym          	| Method Name                                                                 	| Reference  	|
+------------------	|-----------------------------------------------------------------------------	|------------	|
+ TOPSIS           	| Technique for the Order of Prioritisation by Similarity to Ideal Solution   	| [1]        	|
+ VIKOR            	| VIseKriterijumska Optimizacija I Kompromisno Resenje                        	| [2]        	|
+ COPRAS           	| COmplex PRoportional ASsessment                                             	| [3]        	|
+ PROMETHEE I & II 	| Preference Ranking Organization METHod for Enrichment of Evaluations I & II 	| [4]        	|
+ COMET            	| Characteristic Objects Method                                               	| [5]        	|
+ SPOTIS           	| Stable Preference Ordering Towards Ideal Solution                           	| [6]        	|
+ ARAS             	| Additive Ratio ASsessment                                                   	| [7,8]      	|
+ COCOSO           	| COmbined COmpromise SOlution                                                	| [9]        	|
+ CODAS            	| COmbinative Distance-based ASsessment                                       	| [10]       	|
+ EDAS             	| Evaluation based on Distance from Average Solution                          	| [11,12]    	|
+ MABAC            	| Multi-Attributive Border Approximation area Comparison                      	| [13]       	|
+ MAIRCA           	| MultiAttributive Ideal-Real Comparative Analysis                            	| [14,15,16] 	|
+ MARCOS           	| Measurement Alternatives and Ranking according to COmpromise Solution       	| [17,18]    	|
+ OCRA             	| Operational Competitiveness Ratings                                         	| [19,20]    	|
+ MOORA            	| Multi-Objective Optimization Method by Ratio Analysis                       	| [21,22]    	|
 
 * Weighting methods:
-  * Equal weights
-  * Entropy method
-  * Std method
-  * MEREC method
-  * CRITIC method
-  * CILOS method
-  * IDOCRIW method
-  * Angle method
-  * Gini method
- 
- 
+
+
+| Acronym 	| Method Name                                           	|  Reference 	|
+|---------	|-------------------------------------------------------	|:----------:	|
+| -       	| Equal/Mean weights                                    	|    [23]    	|
+| -       	| Entropy weights                                       	| [23,24,25] 	|
+| STD     	| Standard Deviation weights                            	|   [23,26]  	|
+| MEREC   	| MEthod based on the Removal Effects of Criteria       	|    [27]    	|
+| CRITIC  	| CRiteria Importance Through Intercriteria Correlation 	|  [28, 29]  	|
+| CILOS   	| Criterion Impact LOS                                  	|    [30]    	|
+| IDOCRIW 	| Integrated Determination of Objective CRIteria Weight 	|    [30]    	|
+| -       	| Angular/Angle weights                                 	|    [31]    	|
+| -       	| Gini Coeficient weights                               	|    [32]    	|
+| -       	| Statistical variance weights                          	|    [33]    	|
+  
 * Normalization methods:
   * Linear
   * Max
@@ -116,6 +120,28 @@ The library contains:
 [21] Brauers, W. K. (2003). Optimization methods for a stakeholder society: a revolution in economic thinking by multi-objective optimization (Vol. 73). Springer Science & Business Media.
 
 [22] Hussain, S. A. I., & Mandal, U. K. (2016). Entropy based MCDM approach for Selection of material. In National Level Conference on Engineering Problems and Application of Mathematics (pp. 1-6).
+
+[23] Sałabun, W., Wątróbski, J., & Shekhovtsov, A. (2020). Are mcda methods benchmarkable? a comparative study of topsis, vikor, copras, and promethee ii methods. Symmetry, 12(9), 1549.
+
+[24] Lotfi, F. H., & Fallahnejad, R. (2010). Imprecise Shannon’s entropy and multi attribute decision making. Entropy, 12(1), 53-62.
+
+[25] Li, X., Wang, K., Liu, L., Xin, J., Yang, H., & Gao, C. (2011). Application of the entropy weight and TOPSIS method in safety evaluation of coal mines. Procedia engineering, 26, 2085-2091.
+
+[26] Wang, Y. M., & Luo, Y. (2010). Integration of correlations with standard deviations for determining attribute weights in multiple attribute decision making. Mathematical and Computer Modelling, 51(1-2), 1-12.
+
+[27] Keshavarz-Ghorabaee, M., Amiri, M., Zavadskas, E. K., Turskis, Z., & Antucheviciene, J. (2021). Determination of Objective Weights Using a New Method Based on the Removal Effects of Criteria (MEREC). Symmetry, 13(4), 525.
+
+[28] Diakoulaki, D., Mavrotas, G., & Papayannakis, L. (1995). Determining objective weights in multiple criteria problems: The critic method. Computers & Operations Research, 22(7), 763-770.
+
+[29] Tuş, A., & Adalı, E. A. (2019). The new combination with CRITIC and WASPAS methods for the time and attendance software selection problem. Opsearch, 56(2), 528-538.
+
+[30] Zavadskas, E. K., & Podvezko, V. (2016). Integrated determination of objective criteria weights in MCDM. International Journal of Information Technology & Decision Making, 15(02), 267-283.
+
+[31] Shuai, D., Zongzhun, Z., Yongji, W., & Lei, L. (2012, May). A new angular method to determine the objective weights. In 2012 24th Chinese Control and Decision Conference (CCDC) (pp. 3889-3892). IEEE.
+
+[32] Li, G., & Chi, G. (2009, December). A new determining objective weights method-gini coefficient weight. In 2009 First International Conference on Information Science and Engineering (pp. 3726-3729). IEEE.
+
+[33] Rao, R. V., & Patel, B. K. (2010). A subjective and objective integrated multiple attribute decision making method for material selection. Materials & Design, 31(10), 4738-4747.
 ___
 # Usage example
 
