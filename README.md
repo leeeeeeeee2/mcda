@@ -64,12 +64,15 @@ The library contains:
 | Enhanced Accuracy Normalization    	|    [40]   	|
 
 * Correlation coefficients:
-    * Spearman
-    * Pearson
-    * Weighted Spearman
-    * Rank Similarity Coefficient
-    * Kendall Tau
-    * Goodman and Kruskal Gamma
+
+| Coefficient name                                 	| Reference 	|
+|--------------------------------------------------	|:---------:	|
+| Spearman's rank correlation coefficient          	|  [41,41]  	|
+| Pearson correlation coefficient                  	|    [43]   	|
+| Weighted Spearman’s rank correlation coefficient 	|    [44]   	|
+| Rank Similarity Coefficient                      	|    [45]   	|
+| Kendall rank correlation coefficient             	|    [46]   	|
+| Goodman and Kruskal's gamma                      	|    [47]   	|
 
 
 * Helpers
@@ -158,6 +161,20 @@ The library contains:
 [39] Peldschus, F., Vaigauskas, E., & Zavadskas, E. K. (1983). Technologische entscheidungen bei der berücksichtigung mehrerer Ziehle. Bauplanung Bautechnik, 37(4), 173-175.
 
 [40] Zeng, Q. L., Li, D. D., & Yang, Y. B. (2013). VIKOR method with enhanced accuracy for multiple criteria decision making in healthcare management. Journal of medical systems, 37(2), 1-9.
+
+[41] Binet, A., & Henri, V. (1898). La fatigue intellectuelle (Vol. 1). Schleicher frères.
+
+[42] Spearman, C. (1910). Correlation calculated from faulty data. British Journal of Psychology, 1904‐1920, 3(3), 271-295.
+
+[43] Pearson, K. (1895). VII. Note on regression and inheritance in the case of two parents. proceedings of the royal society of London, 58(347-352), 240-242.
+
+[44] Dancelli, L., Manisera, M., & Vezzoli, M. (2013). On two classes of Weighted Rank Correlation measures deriving from the Spearman’s ρ. In Statistical Models for Data Analysis (pp. 107-114). Springer, Heidelberg.
+
+[45] Sałabun, W., & Urbaniak, K. (2020, June). A new coefficient of rankings similarity in decision-making problems. In International Conference on Computational Science (pp. 632-645). Springer, Cham.
+
+[46] Kendall, M. G. (1938). A new measure of rank correlation. Biometrika, 30(1/2), 81-93.
+
+[47] Goodman, L. A., & Kruskal, W. H. (1979). Measures of association for cross classifications. Measures of association for cross classifications, 2-34.
 ___
 # Usage example
 
