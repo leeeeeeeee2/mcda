@@ -35,7 +35,7 @@ def spearman(x, y):
         float
             Correlation between two rankings vectors.
     """
-    return (_cov(x, y)) / (np.std(x, ddof=1) * np.std(y, ddof=1))
+    return (_cov(x, y)) / (np.std(x) * np.std(y))
 
 
 def pearson(x, y):
@@ -54,7 +54,7 @@ def pearson(x, y):
         float
             Correlation between two vectors.
     """
-    return (_cov(x, y)) / (np.std(x, ddof=1) * np.std(y, ddof=1))
+    return (_cov(x, y)) / (np.std(x) * np.std(y))
 
 
 def weighted_spearman(x, y):
