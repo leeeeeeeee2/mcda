@@ -13,7 +13,7 @@ class TestMCDA(unittest.TestCase):
             matrix = np.array([[1, 2, 3], [1, 2, 3]])
             weights = np.array([0.5, 0.5])
             types = np.array([1, -1, -1])
-            body(matrix, weights, types)
+            body._validate_input_data(matrix, weights, types)
 
 
 class TestARAS(unittest.TestCase):
@@ -24,20 +24,19 @@ class TestARAS(unittest.TestCase):
     """
 
     def test_output(self):
-        with self.assertRaises(ValueError):
-            body = methods.ARAS()
-            matrix = np.array([[4.64, 3.00, 3.00, 3.00, 2.88, 3.63],
-                               [4.00, 4.00, 4.64, 3.56, 3.63, 5.00],
-                               [3.30, 4.31, 3.30, 4.00, 3.30, 4.00],
-                               [2.62, 5.00, 4.22, 4.31, 5.00, 5.00]])
+        body = methods.ARAS()
+        matrix = np.array([[4.64, 3.00, 3.00, 3.00, 2.88, 3.63],
+                           [4.00, 4.00, 4.64, 3.56, 3.63, 5.00],
+                           [3.30, 4.31, 3.30, 4.00, 3.30, 4.00],
+                           [2.62, 5.00, 4.22, 4.31, 5.00, 5.00]])
 
-            weights = np.array([0.28, 0.25, 0.19, 0.15, 0.08, 0.04])
-            types = np.array([1, 1, 1, 1, 1, 1])
+        weights = np.array([0.28, 0.25, 0.19, 0.15, 0.08, 0.04])
+        types = np.array([1, 1, 1, 1, 1, 1])
 
-            output = np.array([0.74, 0.86, 0.78, 0.86])
+        output = [0.74, 0.86, 0.78, 0.86]
+        output_method = [round(preference, 2) for preference in body(matrix, weights, types)]
 
-            if output != body(matrix, weights, types):
-                raise ValueError('Output not equal with reference!')
+        self.assertListEqual(output, output_method)
 
 
 class TestCOCOSO(unittest.TestCase):
@@ -47,22 +46,21 @@ class TestCOCOSO(unittest.TestCase):
     """
 
     def test_output(self):
-        with self.assertRaises(ValueError):
-            body = methods.COCOSO()
-            matrix = np.array([[60, 0.4, 2540, 500, 990],
-                               [6.35, 0.15, 1016, 3000, 1041],
-                               [6.8, 0.1, 1727.2, 1500, 1676],
-                               [10, 0.2, 1000, 2000, 965],
-                               [2.5, 0.1, 560, 500, 915],
-                               [4.5, 0.08, 1016, 350, 508],
-                               [3, 0.1, 1778, 1000, 920]])
-            weights = np.array([0.036, 0.192, 0.326, 0.326, 0.12])
-            types = np.array([1, -1, 1, 1, 1])
+        body = methods.COCOSO()
+        matrix = np.array([[60, 0.4, 2540, 500, 990],
+                           [6.35, 0.15, 1016, 3000, 1041],
+                           [6.8, 0.1, 1727.2, 1500, 1676],
+                           [10, 0.2, 1000, 2000, 965],
+                           [2.5, 0.1, 560, 500, 915],
+                           [4.5, 0.08, 1016, 350, 508],
+                           [3, 0.1, 1778, 1000, 920]])
+        weights = np.array([0.036, 0.192, 0.326, 0.326, 0.12])
+        types = np.array([1, -1, 1, 1, 1])
 
-            output = np.array([2.041, 2.788, 2.882, 2.416, 1.3, 1.443, 2.52])
+        output = [2.041, 2.788, 2.882, 2.416, 1.299, 1.443, 2.519]
+        output_method = [round(preference, 3) for preference in body(matrix, weights, types)]
 
-            if output != body(matrix, weights, types):
-                raise ValueError('Output not equal with reference!')
+        self.assertListEqual(output, output_method)
 
 
 class TestCODAS(unittest.TestCase):
@@ -74,18 +72,17 @@ class TestCODAS(unittest.TestCase):
     """
 
     def test_output(self):
-        with self.assertRaises(ValueError):
-            body = methods.CODAS()
-            matrix = np.array([[45, 3600, 45, 0.9],
-                               [25, 3800, 60, 0.8],
-                               [23, 3100, 35, 0.9],
-                               [14, 3400, 50, 0.7],
-                               [15, 3300, 40, 0.8],
-                               [28, 3000, 30, 0.6]])
-            types = np.array([1, -1, 1, 1])
-            weights = np.array([0.2857, 0.3036, 0.2321, 0.1786])
+        body = methods.CODAS()
+        matrix = np.array([[45, 3600, 45, 0.9],
+                           [25, 3800, 60, 0.8],
+                           [23, 3100, 35, 0.9],
+                           [14, 3400, 50, 0.7],
+                           [15, 3300, 40, 0.8],
+                           [28, 3000, 30, 0.6]])
+        types = np.array([1, -1, 1, 1])
+        weights = np.array([0.2857, 0.3036, 0.2321, 0.1786])
 
-            output = np.array([1.3914, 0.3411, -0.2170, -0.5381, -0.7292, -0.2481])
+        output = [1.3914, 0.3411, -0.2170, -0.5381, -0.7292, -0.2481]
+        output_method = [round(preference, 4) for preference in body(matrix, weights, types)]
 
-            if output != body(matrix, weights, types):
-                raise ValueError('Output not equal with reference!')
+        self.assertListEqual(output, output_method)
