@@ -88,7 +88,7 @@ def standard_deviation_weights(matrix, *args, **kwargs):
         ndarray
             Vector of weights.
     """
-    std = np.std(matrix, axis=0)
+    std = np.std(matrix, axis=0, ddof=1)
     return std / np.sum(std)
 
 
