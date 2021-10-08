@@ -121,3 +121,26 @@ class TestCOMET(unittest.TestCase):
         output_method = [round(preference, 4) for preference in body(matrix)]
 
         self.assertListEqual(output, output_method)
+
+
+class TestCOPRAS(unittest.TestCase):
+    """ Test output method with reference:
+    [1] Kundakcı, N., & Işık, A. (2016). Integration of MACBETH and COPRAS
+    methods to select air compressor for a textile company. Decision Science Letters, 5(3), 381-394.
+    """
+
+    def test_output(self):
+        body = methods.COPRAS()
+        matrix = np.array([[1543, 2000, 39000, 15, 13.76, 3.86, 5, 3, 5000],
+                           [1496, 3600, 43000, 14, 14, 2.5, 4, 4, 4000],
+                           [1584, 3100, 24500, 10, 13.1, 3.7, 2, 2, 3500],
+                           [1560, 2700, 36000, 12, 13.2, 3.2, 3, 3, 3500],
+                           [1572, 2500, 31500, 13, 13.3, 3.4, 3, 2, 3500],
+                           [1580, 2400, 20000, 12, 12.8, 3.9, 2, 2, 3000]])
+        types = np.array([-1, -1, -1, 1, 1, -1, 1, 1, 1])
+        weights = np.array([0.2027, 0.1757, 0.1622, 0.1351, 0.1081, 0.0946, 0.0676, 0.0405, 0.0135])
+
+        output = [1, 0.9167, 0.8675, 0.9084, 0.9315, 0.9486]
+        output_method = [round(preference, 4) for preference in body(matrix, weights, types)]
+
+        self.assertListEqual(output, output_method)
