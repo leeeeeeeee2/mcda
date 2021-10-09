@@ -277,7 +277,9 @@ class TestMOORA(unittest.TestCase):
 
 class TestOCRA(unittest.TestCase):
     """ Test output method with reference:
-    [1]
+    [1] Işık, A. T., & Adalı, E. A. (2016). A new integrated decision making
+    approach based on SWARA and OCRA methods for the hotel selection problem. International Journal of Advanced
+    Operations Management, 8(2), 140-151.
     """
 
     def test_output(self):
