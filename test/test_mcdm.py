@@ -54,6 +54,7 @@ class TestCOCOSO(unittest.TestCase):
                            [2.5, 0.1, 560, 500, 915],
                            [4.5, 0.08, 1016, 350, 508],
                            [3, 0.1, 1778, 1000, 920]])
+
         weights = np.array([0.036, 0.192, 0.326, 0.326, 0.12])
         types = np.array([1, -1, 1, 1, 1])
 
@@ -79,6 +80,7 @@ class TestCODAS(unittest.TestCase):
                            [14, 3400, 50, 0.7],
                            [15, 3300, 40, 0.8],
                            [28, 3000, 30, 0.6]])
+
         types = np.array([1, -1, 1, 1])
         weights = np.array([0.2857, 0.3036, 0.2321, 0.1786])
 
@@ -112,6 +114,7 @@ class TestCOMET(unittest.TestCase):
             np.min(matrix, axis=0),
             np.max(matrix, axis=0)
         )).T
+
         types = np.array([1, 1, 1, 1, 1, -1, 1, 1, -1])
         weights = np.array([1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9])
 
@@ -137,6 +140,7 @@ class TestCOPRAS(unittest.TestCase):
                            [1560, 2700, 36000, 12, 13.2, 3.2, 3, 3, 3500],
                            [1572, 2500, 31500, 13, 13.3, 3.4, 3, 2, 3500],
                            [1580, 2400, 20000, 12, 12.8, 3.9, 2, 2, 3000]])
+
         types = np.array([-1, -1, -1, 1, 1, -1, 1, 1, 1])
         weights = np.array([0.2027, 0.1757, 0.1622, 0.1351, 0.1081, 0.0946, 0.0676, 0.0405, 0.0135])
 
@@ -209,7 +213,6 @@ class TestMAIRCA(unittest.TestCase):
                            [53, 295, 10.3, 25],
                            [63, 256, 12, 8],
                            [64, 233, 5.3, 17]])
-
         weights = np.array([0.04744, 0.02464, 0.51357, 0.41435])
         types = np.array([1, 1, 1, 1])
 
@@ -238,10 +241,33 @@ class TestMARCOS(unittest.TestCase):
                            [960, 2000, 1600, 12, 1150]])
 
         weights = np.array([0.1061, 0.3476, 0.3330, 0.1185, 0.0949])
-
         types = np.array([-1, 1, 1, 1, 1])
 
-        output = [0.5649,  0.5543, 0.6410, 0.6174, 0.6016, 0.5453, 0.6282, 0.6543]
+        output = [0.5649, 0.5543, 0.6410, 0.6174, 0.6016, 0.5453, 0.6282, 0.6543]
+        output_method = [round(preference, 4) for preference in body(matrix, weights, types)]
+
+        self.assertListEqual(output, output_method)
+
+
+class TestMOORA(unittest.TestCase):
+    """ Test output method with reference:
+    [1] Siregar, V. M. M., Tampubolon, M. R., Parapat, E. P. S., Malau, E. I.,
+    & Hutagalung, D. S. (2021, February). Decision support system for selection technique using MOORA method. In IOP
+    Conference Series: Materials Science and Engineering (Vol. 1088, No. 1, p. 012022). IOP Publishing.
+    """
+
+    def test_output(self):
+        body = methods.MOORA()
+        matrix = np.array([[1.5, 3, 5, 3.3],
+                           [2, 7, 5, 3.35],
+                           [3, 1, 5, 3.07],
+                           [2.2, 4, 5, 3.5],
+                           [2, 5, 3, 3.09],
+                           [3.2, 2, 3, 3.48],
+                           [2.775, 3, 5, 3.27]])
+        weights = np.array([0.3, 0.2, 0.1, 0.4])
+        types = np.array([-1, 1, 1, 1])
+        output = [0.1801, 0.2345, 0.0625, 0.1757, 0.1683, 0.0742, 0.1197]
         output_method = [round(preference, 4) for preference in body(matrix, weights, types)]
 
         self.assertListEqual(output, output_method)
