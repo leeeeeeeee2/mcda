@@ -6,7 +6,7 @@ from .mcda_method import MCDA_method
 
 class MOORA(MCDA_method):
     def __init__(self):
-        """Create COPRAS method object."""
+        """Create MOORA method object."""
         pass
 
     def __call__(self, matrix, weights, types, *args, **kwargs):
@@ -34,7 +34,8 @@ Returns
 """
         MOORA._validate_input_data(matrix, weights, types)
         if np.all(types == 1.0):
-            raise ValueError('types array contains only profit criteria. COPRAS method requires at least one cost criteria.')
+            raise ValueError('types array contains only profit criteria. MOORA method requires at least one cost '
+                             'criteria.')
         return MOORA._moora(matrix, weights, types)
 
     @staticmethod
@@ -43,7 +44,6 @@ Returns
 
         # Difficult normalized decision making matrix
         wmatrix = nmatrix * weights
-
         # Calculate the composite score
         cscore = np.sum(wmatrix[:, cryteria_types == 1], axis=1) - np.sum(wmatrix[:, cryteria_types == -1], axis=1)
         return cscore
