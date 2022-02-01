@@ -320,3 +320,30 @@ class TestPROMETHEE_II(unittest.TestCase):
         output_method = [round(preference, 2) for preference in body(matrix, weights, types)]
 
         self.assertListEqual(output, output_method)
+
+
+class TestSPOTIS(unittest.TestCase):
+    """ Test output method with reference:
+    [1] Dezert, J., Tchamova, A., Han, D., & Tacnet, J. M. (2020, July). The spotis rank reversal free method for
+    multi-criteria decision-making support. In 2020 IEEE 23rd International Conference on Information Fusion (FUSION)
+    (pp. 1-8). IEEE.
+    """
+
+    def test_output(self):
+        body = methods.SPOTIS()
+
+        matrix = np.array([[10.5, -3.1, 1.7],
+                           [-4.7, 0, 3.4],
+                           [8.1, 0.3, 1.3],
+                           [3.2, 7.3, -5.3]])
+        bounds = np.array([[-5, 12],
+                           [-6, 10],
+                           [-8, 5]], dtype=float)
+        weights = np.array([0.2, 0.3, 0.5])
+
+        types = np.array([1, -1, 1])
+
+        output = [0.1989, 0.3705, 0.3063, 0.7491]
+        output_method = [round(preference, 4) for preference in body(matrix, weights, types, bounds)]
+
+        self.assertListEqual(output, output_method)
