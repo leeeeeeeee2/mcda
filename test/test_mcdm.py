@@ -284,17 +284,39 @@ class TestOCRA(unittest.TestCase):
 
     def test_output(self):
         body = methods.OCRA()
-        matrix = np.array([[7.7, 256, 7.2, 7.3, 7.3 ],
-                  [8.1, 250, 7.9, 7.8, 7.7],
-                  [8.7, 352, 8.6, 7.9, 8.0 ],
-                  [8.1, 262, 7.0, 8.1, 7.2],
-                  [6.5, 271, 6.3, 6.4, 6.1],
-                  [6.8, 228, 7.1, 7.2, 6.5]])
+        matrix = np.array([[7.7, 256, 7.2, 7.3, 7.3],
+                           [8.1, 250, 7.9, 7.8, 7.7],
+                           [8.7, 352, 8.6, 7.9, 8.0],
+                           [8.1, 262, 7.0, 8.1, 7.2],
+                           [6.5, 271, 6.3, 6.4, 6.1],
+                           [6.8, 228, 7.1, 7.2, 6.5]])
 
         weights = np.array([0.239, 0.225, 0.197, 0.186, 0.153])
         types = np.array([1, -1, 1, 1, 1])
 
         output = [0.143, 0.210, 0.164, 0.167, 0, 0.112]
         output_method = [round(preference, 3) for preference in body(matrix, weights, types)]
+
+        self.assertListEqual(output, output_method)
+
+
+class TestPROMETHEE_II(unittest.TestCase):
+    """ Test output method with reference:
+    [1] Zhao, H., Peng, Y., & Li, W. (2013). Revised PROMETHEE II for improving efficiency in emergency response.
+    Procedia Computer Science, 17, 181-188.
+    """
+
+    def test_output(self):
+
+        body = methods.PROMETHEE_II('usual')
+        matrix = np.array([[4, 3, 2],
+                           [3, 2, 4],
+                           [5, 1, 3]])
+
+        weights = np.array([0.5, 0.3, 0.2])
+        types = np.ones(3)
+
+        output = [0.1, -0.3, 0.2]
+        output_method = [round(preference, 2) for preference in body(matrix, weights, types)]
 
         self.assertListEqual(output, output_method)
