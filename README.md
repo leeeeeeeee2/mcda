@@ -3,17 +3,21 @@
 Python 3 library for solving multi-criteria decision-making (MCDM) problems.
 
 ___
+
 # Installation
 
 You can download and install `pymcdm` library using pip:
 
-```Bash
+```Bash 
 pip install pymcdm
 ```
+
 ___
+
 # Available methods
 
 The library contains:
+
 * MCDA methods:
 
 | Acronym            	| Method Name                                                                   	|                Reference               	|
@@ -36,7 +40,6 @@ The library contains:
 
 * Weighting methods:
 
-
 | Acronym   	| Method Name                                             	|                 Reference                	|
 |-----------	|---------------------------------------------------------	|:----------------------------------------:	|
 | -         	| Equal/Mean weights                                      	|               [[23]](#c23)               	|
@@ -49,7 +52,7 @@ The library contains:
 | -         	| Angular/Angle weights                                   	|               [[31]](#c31)               	|
 | -         	| Gini Coeficient weights                                 	|               [[32]](#c32)               	|
 | -         	| Statistical variance weights                            	|               [[33]](#c33)               	|
-  
+
 * Normalization methods:
 
 | Method Name                          	|          Reference         	|
@@ -80,7 +83,50 @@ The library contains:
     * rrankdata
   
 
-### References
+___
+# Usage example
+
+Here's a small example of how use this library to solve MCDM problem.
+For more examples with explanation see [examples](https://gitlab.com/shekhand/mcda/-/blob/master/examples/examples.ipynb).
+
+```python
+import numpy as np
+from pymcdm.methods import TOPSIS
+from pymcdm.helpers import rrankdata
+
+# Define decision matrix (2 criteria, 4 alternative)
+alts = np.array([
+    [4, 4],
+    [1, 5],
+    [3, 2],
+    [4, 2]
+], dtype='float')
+
+# Define weights and types
+weights = np.array([0.5, 0.5])
+types = np.array([1, -1])
+
+# Create object of the method
+topsis = TOPSIS()
+
+# Determine preferences and ranking for alternatives
+pref = topsis(alts, weights, types)
+ranking = rrankdata(pref)
+
+for r, p in zip(ranking, pref):
+    print(r, p)
+```
+
+And the output of this example (numbers are rounded):
+
+```bash
+3 0.6126
+4 0.0
+2 0.7829
+1 1.0
+```
+---
+# References
 
 <a name="c1">**[1]**</a> Hwang, C. L., & Yoon, K. (1981). Methods for multiple attribute decision making. In Multiple attribute decision making (pp. 58-191). Springer, Berlin, Heidelberg.
 
@@ -175,46 +221,4 @@ The library contains:
 <a name="c46">**[46]**</a> Kendall, M. G. (1938). A new measure of rank correlation. Biometrika, 30(1/2), 81-93.
 
 <a name="c47">**[47]**</a> Goodman, L. A., & Kruskal, W. H. (1979). Measures of association for cross classifications. Measures of association for cross classifications, 2-34.
-___
-# Usage example
-
-Here's a small example of how use this library to solve MCDM problem.
-For more examples with explanation see [examples](https://gitlab.com/shekhand/mcda/-/blob/master/examples/examples.ipynb).
-
-```python
-import numpy as np
-from pymcdm.methods import TOPSIS
-from pymcdm.helpers import rrankdata
-
-# Define decision matrix (2 criteria, 4 alternative)
-alts = np.array([
-    [4, 4],
-    [1, 5],
-    [3, 2],
-    [4, 2]
-], dtype='float')
-
-# Define weights and types
-weights = np.array([0.5, 0.5])
-types = np.array([1, -1])
-
-# Create object of the method
-topsis = TOPSIS()
-
-# Determine preferences and ranking for alternatives
-pref = topsis(alts, weights, types)
-ranking = rrankdata(pref)
-
-for r, p in zip(ranking, pref):
-    print(r, p)
-```
-
-And the output of this example (numbers are rounded):
-
-```bash
-3 0.6126
-4 0.0
-2 0.7829
-1 1.0
-```
 
