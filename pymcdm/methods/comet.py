@@ -28,27 +28,27 @@ class COMET(MCDA_method):
     def __init__(self, cvalues, rate_function=None, expert_function=None):
         """Initialize COMET model. It creates CO and rank them using `ranking_method`.
 
-Parameters
-----------
-    cvalues : ndarray or list of lists
-        Each row represent characteristic values for each criteria.
+        Parameters
+        ----------
+            cvalues : ndarray or list of lists
+                Each row represent characteristic values for each criteria.
 
-    rate_function : callable
-        Function to rate CO without creating MEJ. Matrix with CO as rows is passed as an argument Vector with rates should be retrurn. Better CO should has higher values.
+            rate_function : callable
+                Function to rate CO without creating MEJ. Matrix with CO as rows is passed as an argument Vector with rates should be retrurn. Better CO should has higher values.
 
-        Signature of the function should be as followed:
-            rate_function(co: np.array) -> np.array
+                Signature of the function should be as followed:
+                    rate_function(co: np.array) -> np.array
 
-    expert_function : callable
-        Function which would be used to compare CO on MEJ creation.
-        It should fulfill this requirments:
-           CO to compare are passed as arguments (a, b)
-           if a is better then b return 1,
-           if b is better then a return 0,
-           if this CO are equaly prefered return 0.5
+            expert_function : callable
+                Function which would be used to compare CO on MEJ creation.
+                It should fulfill this requirments:
+                   CO to compare are passed as arguments (a, b)
+                   if a is better then b return 1,
+                   if b is better then a return 0,
+                   if this CO are equaly prefered return 0.5
 
-    If both ranking_method and expert_function are provided, expert_function is preffered.
-"""
+            If both ranking_method and expert_function are provided, expert_function is preffered.
+        """
         # Validate input
         for i, cv in enumerate(cvalues):
             if len(cv) < 2:
@@ -95,19 +95,21 @@ Parameters
     def __call__(self, alts, *args, **kwargs):
         """Rank alternatives from decision matrix `alts`, with criteria weights `weights` and criteria types `types`.
 
-Parameters
-----------
-    alts : ndarray
-        Decision matrix / alternatives data.
-        Alternatives are in rows and Criteria are in columns.
+        Parameters
+        ----------
+            alts : ndarray
+                Decision matrix / alternatives data.
+                Alternatives are in rows and Criteria are in columns.
 
-    *args and **kwargs are necessary for methods which reqiure some additional data.
+            *args: is necessary for methods which reqiure some additional data.
 
-Returns
--------
-    ndarray
-        Preference values for alternatives. Better alternatives have higher values.
-"""
+            **kwargs: is necessary for methods which reqiure some additional data.
+
+        Returns
+        -------
+            ndarray
+                Preference values for alternatives. Better alternatives have higher values.
+        """
         if self.criterion_number != alts.shape[1]:
             raise ValueError(
                     'Number of criteria in decision matrix must be equal to number of criteria in characteristic values.'

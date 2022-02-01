@@ -37,7 +37,9 @@ class COCOSO(MCDA_method):
             l: value
                 The value of balanced compromise. It must be from the interval [0, 1].
 
-            *args and **kwargs are necessary for methods which reqiure some additional data.
+            *args: is necessary for methods which reqiure some additional data.
+
+            **kwargs: is necessary for methods which reqiure some additional data.
 
         Returns
         -------

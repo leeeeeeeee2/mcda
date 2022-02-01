@@ -11,54 +11,56 @@ class PROMETHEE_II(MCDA_method):
     def __init__(self, preference_function):
         """Create PROMEHTEE_II method object, with `preference_function`.
 
-Parameters
-----------
-    preference_function: str
-        Name of the preference function ('usual', 'ushape', 'vshape', 'level', 'vshape_2')
-"""
+        Parameters
+        ----------
+            preference_function: str
+                Name of the preference function ('usual', 'ushape', 'vshape', 'level', 'vshape_2')
+        """
         self.pf = getattr(PROMETHEE_II._PreferenceFunctions, preference_function)
 
     def __call__(self, matrix, weights, types, *args, p=None, q=None, promethee_I=False, **kwargs):
         """
-Rank alternatives from decision matrix `matrix`, with criteria weights `weights` and criteria types `types`.
+        Rank alternatives from decision matrix `matrix`, with criteria weights `weights` and criteria types `types`.
 
-Parameters
-----------
-    matrix : ndarray
-        Decision matrix / alternatives data.
-        Alternatives are in rows and Criteria are in columns.
+        Parameters
+        ----------
+            matrix : ndarray
+                Decision matrix / alternatives data.
+                Alternatives are in rows and Criteria are in columns.
 
-    weights : ndarray
-        Criteria weights. Sum of the weights should be 1. (e.g. sum(weights) == 1)
+            weights : ndarray
+                Criteria weights. Sum of the weights should be 1. (e.g. sum(weights) == 1)
 
-    types : ndarray
-        Array with definitions of criteria types:
-        1 if criteria is profit and -1 if criteria is cost for each criteria in `matrix`.
+            types : ndarray
+                Array with definitions of criteria types:
+                1 if criteria is profit and -1 if criteria is cost for each criteria in `matrix`.
 
-    p : ndarray
-        p values for each criterion
+            p : ndarray
+                p values for each criterion
 
-    q : ndarray
-        q values for each criterion
+            q : ndarray
+                q values for each criterion
 
-    promethee_I : bool
-        If True then returns F+ and F- (like in promethee I).
+            promethee_I : bool
+                If True then returns F+ and F- (like in promethee I).
 
-    *args and **kwargs are necessary for methods which reqiure some additional data.
+            *args: is necessary for methods which reqiure some additional data.
 
-Returns
--------
-    If `promethee_I` is True:
-    ndarray
-        Positive flow
+            **kwargs: is necessary for methods which reqiure some additional data.
 
-    ndarray
-        Negative flow
+        Returns
+        -------
+            If `promethee_I` is True:
+            ndarray
+                Positive flow
 
-    If `promethee_I` is False:
-    ndarray
-        Preference values of alternatives. Better alternatives have higher values.
-"""
+            ndarray
+                Negative flow
+
+            If `promethee_I` is False:
+            ndarray
+                Preference values of alternatives. Better alternatives have higher values.
+        """
         pf = self.pf
         if p is None and q is None:
             pfs = (partial(pf, p=None, q=None) for i in range(matrix.shape[1]))

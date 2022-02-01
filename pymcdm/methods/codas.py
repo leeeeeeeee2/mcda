@@ -40,7 +40,9 @@ class CODAS(MCDA_method):
                 Array with definitions of criteria types:
                 1 if criteria is profit and -1 if criteria is cost for each criteria in `matrix`.
 
-            *args and **kwargs are necessary for methods which reqiure some additional data.
+            *args: is necessary for methods which reqiure some additional data.
+
+            **kwargs: is necessary for methods which reqiure some additional data.
 
         Returns
         -------
