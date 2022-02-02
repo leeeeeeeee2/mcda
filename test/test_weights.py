@@ -122,3 +122,23 @@ class TestCILOSWeights(unittest.TestCase):
         output_method = [round(weight, 4) for weight in weights.cilos_weights(matrix, types)]
 
         self.assertListEqual(output, output_method)
+
+
+class TestIDOCRIWWeights(unittest.TestCase):
+    """ Test output method with reference:
+    [1] Zavadskas, E. K., & Podvezko, V. (2016). Integrated determination of objective criteria weights in MCDM.
+    International Journal of Information Technology & Decision Making, 15(02), 267-283.
+    """
+
+    def test_output(self):
+        matrix = np.array([[3, 100, 10, 7],
+                           [2.5, 80, 8, 5],
+                           [1.8, 50, 20, 11],
+                           [2.2, 70, 12, 9]])
+
+        types = np.array([-1, 1, -1, 1])
+
+        output = [0.1658, 0.1885, 0.3545, 0.2911]
+        output_method = [round(weight, 4) for weight in weights.idocriw_weights(matrix, types)]
+
+        self.assertListEqual(output, output_method)
