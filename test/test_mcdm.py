@@ -376,7 +376,7 @@ class TestVIKOR(unittest.TestCase):
     IEEE Access, 8, 21261-21271.
     """
 
-    def test_output(self):
+    def test_output_yang(self):
         body = methods.VIKOR()
 
         matrix = np.array([[78, 56, 34, 6],
@@ -391,5 +391,21 @@ class TestVIKOR(unittest.TestCase):
 
         output = [0.5679, 0.7667, 1, 0.7493, 0]
         output_method = [round(preference, 4) for preference in body(matrix, weights, types)]
+
+        self.assertListEqual(output, output_method)
+
+    def test_output_oprovic(self):
+
+        body = methods.VIKOR()
+
+        matrix = np.array([[1, 2, 5],
+                           [3000, 3750, 4500]]).T
+
+        weights = np.array([0.5, 0.5])
+
+        types = np.array([-1, 1])
+
+        output = [1, 0, 1]
+        output_method = list(body(matrix, weights, types))
 
         self.assertListEqual(output, output_method)
