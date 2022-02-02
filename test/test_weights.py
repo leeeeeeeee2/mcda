@@ -93,13 +93,32 @@ class TestCRITICWeights(unittest.TestCase):
 
     def test_output(self):
         matrix = np.array([[5000, 3, 3, 4, 3, 2],
-                        [680, 5, 3, 2, 2, 1],
-                        [2000, 3, 2, 3, 4, 3],
-                        [600, 4, 3, 1, 2, 2],
-                        [800, 2, 4, 3, 3, 4]])
+                           [680, 5, 3, 2, 2, 1],
+                           [2000, 3, 2, 3, 4, 3],
+                           [600, 4, 3, 1, 2, 2],
+                           [800, 2, 4, 3, 3, 4]])
 
         output = [0.157, 0.249, 0.168, 0.121, 0.154, 0.151]
         output_method = [round(weight, 3) for weight in weights.critic_weights(matrix)]
 
         self.assertListEqual(output, output_method)
 
+
+class TestCILOSWeights(unittest.TestCase):
+    """ Test output method with reference:
+    [1] Zavadskas, E. K., & Podvezko, V. (2016). Integrated determination of objective criteria weights in MCDM.
+    International Journal of Information Technology & Decision Making, 15(02), 267-283.
+    """
+
+    def test_output(self):
+        matrix = np.array([[3, 100, 10, 7],
+                           [2.5, 80, 8, 5],
+                           [1.8, 50, 20, 11],
+                           [2.2, 70, 12, 9]])
+
+        types = np.array([-1, 1, -1, 1])
+
+        output = [0.3343, 0.2199, 0.1957, 0.2501]
+        output_method = [round(weight, 4) for weight in weights.cilos_weights(matrix, types)]
+
+        self.assertListEqual(output, output_method)
