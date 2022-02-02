@@ -142,3 +142,21 @@ class TestIDOCRIWWeights(unittest.TestCase):
         output_method = [round(weight, 4) for weight in weights.idocriw_weights(matrix, types)]
 
         self.assertListEqual(output, output_method)
+
+
+class TestAngleWeights(unittest.TestCase):
+    """ Test output method with reference:
+    [1] Shuai, D., Zongzhun, Z., Yongji, W., & Lei, L. (2012, May). A new angular method to determine the objective
+    weights. In 2012 24th Chinese Control and Decision Conference (CCDC) (pp. 3889-3892). IEEE.
+    """
+
+    def test_output(self):
+        matrix = np.array([[30, 30, 38, 29],
+                           [19, 54, 86, 29],
+                           [19, 15, 85, 29.1],
+                           [68, 70, 60, 29]])
+
+        output = [0.415, 0.3612, 0.2227, 0.0012]
+        output_method = [round(weight, 4) for weight in weights.angle_weights(matrix)]
+
+        self.assertListEqual(output, output_method)
