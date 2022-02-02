@@ -396,7 +396,7 @@ class TestVIKOR(unittest.TestCase):
 
         self.assertListEqual(output, output_method)
 
-    def test_output_oprovic(self):
+    def test_output_opricovic(self):
 
         body = methods.VIKOR()
 
