@@ -374,6 +374,8 @@ class TestVIKOR(unittest.TestCase):
     """ Test output method with reference:
     [1] Yang, W., & Wu, Y. (2020). A new improvement method to avoid rank reversal in VIKOR.
     IEEE Access, 8, 21261-21271.
+    [2] Opricovic, S., & Tzeng, G. H. (2004). Compromise solution by MCDM methods: A comparative analysis of VIKOR and
+    TOPSIS. European journal of operational research, 156(2), 445-455.
     """
 
     def test_output_yang(self):
