@@ -62,3 +62,24 @@ class TestSTDWeights(unittest.TestCase):
         output_method = [round(weight, 2) for weight in weights.standard_deviation_weights(matrix)]
 
         self.assertListEqual(output, output_method)
+
+
+class TestMERECWeights(unittest.TestCase):
+    """ Test output method with reference:
+    [1] Keshavarz-Ghorabaee, M., Amiri, M., Zavadskas, E. K., Turskis, Z., & Antucheviciene, J. (2021). Determination of
+    Objective Weights Using a New Method Based on the Removal Effects of Criteria (MEREC). Symmetry, 13(4), 525.
+    """
+
+    def test_output(self):
+        matrix = np.array([[450, 8000, 54, 145],
+                           [10, 9100, 2, 160],
+                           [100, 8200, 31, 153],
+                           [220, 9300, 1, 162],
+                           [5, 8400, 23, 158]])
+
+        types = np.array([1, 1, -1, -1])
+
+        output = [0.5752, 0.0141, 0.4016, 0.0091]
+        output_method = [round(weight, 4) for weight in weights.merec_weights(matrix, types)]
+
+        self.assertListEqual(output, output_method)
