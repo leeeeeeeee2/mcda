@@ -83,3 +83,23 @@ class TestMERECWeights(unittest.TestCase):
         output_method = [round(weight, 4) for weight in weights.merec_weights(matrix, types)]
 
         self.assertListEqual(output, output_method)
+
+
+class TestCRITICWeights(unittest.TestCase):
+    """ Test output method with reference:
+    [1] Tuş, A., & Adalı, E. A. (2019). The new combination with CRITIC and WASPAS methods for the time and attendance
+    software selection problem. Opsearch, 56(2), 528-538.
+    """
+
+    def test_output(self):
+        matrix = np.array([[5000, 3, 3, 4, 3, 2],
+                        [680, 5, 3, 2, 2, 1],
+                        [2000, 3, 2, 3, 4, 3],
+                        [600, 4, 3, 1, 2, 2],
+                        [800, 2, 4, 3, 3, 4]])
+
+        output = [0.157, 0.249, 0.168, 0.121, 0.154, 0.151]
+        output_method = [round(weight, 3) for weight in weights.critic_weights(matrix)]
+
+        self.assertListEqual(output, output_method)
+
