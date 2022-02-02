@@ -24,7 +24,6 @@ class TestEntropyWeights(unittest.TestCase):
     """
 
     def test_output(self):
-
         matrix = np.array([[7, 312, 1891, 6613, 163],
                            [72, 88, 728, 941804, 1078],
                            [10, 252, 2594, 3466, 117471],
@@ -40,5 +39,26 @@ class TestEntropyWeights(unittest.TestCase):
 
         output = [0.104991, 0.069124, 0.071373, 0.449937, 0.304575]
         output_method = [round(weight, 6) for weight in weights.entropy_weights(matrix)]
+
+        self.assertListEqual(output, output_method)
+
+
+class TestSTDWeights(unittest.TestCase):
+    """ Test output method with reference:
+    [1] Jahan, A., & Edwards, K. L. (2013). Weighting of dependent and target-based criteria for optimal decision-making
+     in materials selection process: Biomedical applications. Materials & Design, 49, 1000-1008.
+    """
+
+    def test_output(self):
+        matrix = np.array([[0, 0, 0],
+                           [0.39, 0.3, 0.77],
+                           [0.17, 0.36, 0.8],
+                           [0.35, 0.29, 0.93],
+                           [0.3, 0.4, 0.94],
+                           [0.84, 0.71, 1],
+                           [1, 1, 0.99]])
+
+        output = [0.35, 0.31, 0.34]
+        output_method = [round(weight, 2) for weight in weights.standard_deviation_weights(matrix)]
 
         self.assertListEqual(output, output_method)
