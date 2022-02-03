@@ -174,3 +174,18 @@ class TestGiniWeights(unittest.TestCase):
         output_method = [round(weight, 4) for weight in weights.gini_weights(matrix)]
 
         self.assertListEqual(output, output_method)
+
+
+class TestVarianceWeights(unittest.TestCase):
+    """ Test output method without reference """
+
+    def test_output(self):
+        matrix = np.array([[100, 4, 500],
+                           [110, 5, 550],
+                           [120, 6, 600],
+                           [121, 8, 400]])
+
+        output = [0.3761, 0.312, 0.312]
+        output_method = [round(weight, 4) for weight in weights.variance_weights(matrix)]
+
+        self.assertListEqual(output, output_method)
