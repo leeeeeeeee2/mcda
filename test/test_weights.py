@@ -160,3 +160,17 @@ class TestAngleWeights(unittest.TestCase):
         output_method = [round(weight, 4) for weight in weights.angle_weights(matrix)]
 
         self.assertListEqual(output, output_method)
+
+
+class TestGiniWeights(unittest.TestCase):
+    """ Test output method without reference """
+
+    def test_output(self):
+        matrix = np.array([[5, 6, 7],
+                           [5.5, 6.1, 8],
+                           [4, 5, 9]])
+
+        output = [0.412, 0.2562, 0.3319]
+        output_method = [round(weight, 4) for weight in weights.gini_weights(matrix)]
+
+        self.assertListEqual(output, output_method)
