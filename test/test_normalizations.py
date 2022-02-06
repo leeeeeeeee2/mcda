@@ -84,3 +84,24 @@ class TestVectorNormalization(unittest.TestCase):
         output_method = norm.normalize_matrix(matrix, norm.vector_normalization, types).reshape(-1)
         output_method = [round(val, 8) for val in output_method]
         self.assertListEqual(output, output_method)
+
+
+class TestLogarithmicNormalization(unittest.TestCase):
+    """ Test output method without reference """
+
+    def test_output(self):
+        matrix = np.array([[2, 10, 6],
+                           [2, 5, 7],
+                           [3, 3, 11],
+                           [4, 2, 2],
+                           [2, 9, 4],
+                           [1, 5, 6]])
+
+        types = np.array([-1, -1, 1])
+        output = [0.16962777, 0.15157776, 0.1790548, 0.16962777, 0.16615431, 0.19445945, 0.15186115, 0.17689672,
+                  0.2396274, 0.13925554, 0.18542345, 0.06926785, 0.16962777, 0.15379344, 0.1385357, 0.2, 0.16615431,
+                  0.1790548]
+
+        output_method = norm.normalize_matrix(matrix, norm.logaritmic_normalization, types).reshape(-1)
+        output_method = [round(val, 8) for val in output_method]
+        self.assertListEqual(output, output_method)
