@@ -8,7 +8,7 @@ __all__ = [
     'max_normalization',
     'sum_normalization',
     'vector_normalization',
-    'logaritmic_normalization',
+    'logarithmic_normalization',
     'linear_normalization',
     'nonlinear_normalization',
     'enhanced_accuracy_normalization',
