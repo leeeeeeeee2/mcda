@@ -102,6 +102,26 @@ class TestLogarithmicNormalization(unittest.TestCase):
                   0.2396274, 0.13925554, 0.18542345, 0.06926785, 0.16962777, 0.15379344, 0.1385357, 0.2, 0.16615431,
                   0.1790548]
 
-        output_method = norm.normalize_matrix(matrix, norm.logaritmic_normalization, types).reshape(-1)
+        output_method = norm.normalize_matrix(matrix, norm.logarithmic_normalization, types).reshape(-1)
+        output_method = [round(val, 8) for val in output_method]
+        self.assertListEqual(output, output_method)
+
+
+class TestLinearNormalization(unittest.TestCase):
+    """ Test output method without reference """
+
+    def test_output(self):
+        matrix = np.array([[66, 56, 95],
+                           [61, 55, 166],
+                           [65, 49, 113],
+                           [95, 56, 99],
+                           [63, 43, 178],
+                           [74, 59, 140]])
+
+        types = np.array([-1, -1, 1])
+        output = [0.92424242, 0.76785714, 0.53370787, 1.0, 0.78181818, 0.93258427, 0.93846154, 0.87755102, 0.63483146,
+                  0.64210526, 0.76785714, 0.55617978, 0.96825397, 1.0, 1.0, 0.82432432, 0.72881356, 0.78651685]
+
+        output_method = norm.normalize_matrix(matrix, norm.linear_normalization, types).reshape(-1)
         output_method = [round(val, 8) for val in output_method]
         self.assertListEqual(output, output_method)
