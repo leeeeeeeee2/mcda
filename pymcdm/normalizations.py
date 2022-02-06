@@ -43,7 +43,7 @@ def vector_normalization(x, cost=False):
     return x / np.sqrt(np.sum(x ** 2))
 
 
-def logaritmic_normalization(x, cost=False):
+def logarithmic_normalization(x, cost=False):
     prod = np.prod(x)
     if cost:
         return (1 - (np.log(x) / np.log(prod))) / (x.shape[0] - 1)
