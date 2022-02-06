@@ -145,3 +145,23 @@ class TestNonlinearNormalization(unittest.TestCase):
         output_method = norm.normalize_matrix(matrix, norm.nonlinear_normalization, types).reshape(-1)
         output_method = [round(val, 8) for val in output_method]
         self.assertListEqual(output, output_method)
+
+
+class TestEANormalization(unittest.TestCase):
+    """ Test output method without reference """
+
+    def test_output(self):
+        matrix = np.array([[66, 56, 95],
+                           [61, 55, 166],
+                           [65, 49, 113],
+                           [95, 56, 99],
+                           [63, 43, 178],
+                           [74, 59, 140]])
+
+        types = np.array([-1, -1, 1])
+        output = [0.9137931, 0.78333333, 0.70036101, 1.0, 0.8, 0.9566787, 0.93103448, 0.9, 0.76534296, 0.4137931,
+                  0.78333333, 0.71480144, 0.96551724, 1.0, 1.0, 0.77586207, 0.73333333, 0.86281588]
+
+        output_method = norm.normalize_matrix(matrix, norm.enhanced_accuracy_normalization, types).reshape(-1)
+        output_method = [round(val, 8) for val in output_method]
+        self.assertListEqual(output, output_method)
