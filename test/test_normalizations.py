@@ -42,3 +42,25 @@ class TestMaxNormalization(unittest.TestCase):
         output_method = norm.normalize_matrix(matrix, norm.max_normalization, types).reshape(-1)
         output_method = [round(val, 8) for val in output_method]
         self.assertListEqual(output, output_method)
+
+
+class TestSumNormalization(unittest.TestCase):
+    """ Test output method without reference """
+
+    def test_output(self):
+        matrix = np.array([[66, 56, 95],
+                           [61, 55, 166],
+                           [65, 49, 113],
+                           [95, 56, 99],
+                           [63, 43, 178],
+                           [74, 59, 140]])
+
+        types = np.array([-1, -1, 1])
+        output = [0.17447136, 0.155945, 0.12010114, 0.1887723, 0.15878037, 0.20986094, 0.17715554, 0.17822286,
+                  0.14285714, 0.12121168, 0.155945, 0.12515803, 0.18277952, 0.20309117, 0.22503161, 0.15560959,
+                  0.1480156, 0.17699115]
+
+
+        output_method = norm.normalize_matrix(matrix, norm.sum_normalization, types).reshape(-1)
+        output_method = [round(val, 8) for val in output_method]
+        self.assertListEqual(output, output_method)
