@@ -20,23 +20,23 @@ The library contains:
 
 * MCDA methods:
 
-| Acronym            	| Method Name                                                                   	|                Reference               	|
-|--------------------	|-------------------------------------------------------------------------------	|:--------------------------------------:	|
-| TOPSIS             	| Technique for the Order of Prioritisation by Similarity to Ideal Solution     	|               [[1]](#c1)               	|
-| VIKOR              	| VIseKriterijumska Optimizacija I Kompromisno Resenje                          	|               [[2]](#c2)               	|
-| COPRAS             	| COmplex PRoportional ASsessment                                               	|               [[3]](#c3)               	|
-| PROMETHEE I & II   	| Preference Ranking Organization METHod for Enrichment of Evaluations I & II   	|               [[4]](#c4)               	|
-| COMET              	| Characteristic Objects Method                                                 	|               [[5]](#c5)               	|
-| SPOTIS             	| Stable Preference Ordering Towards Ideal Solution                             	|               [[6]](#c6)               	|
-| ARAS               	| Additive Ratio ASsessment                                                     	|          [[7]](#c7),[[8]](#c8)         	|
-| COCOSO             	| COmbined COmpromise SOlution                                                  	|               [[9]](#c9)               	|
-| CODAS              	| COmbinative Distance-based ASsessment                                         	|              [[10]](#c10)              	|
-| EDAS               	| Evaluation based on Distance from Average Solution                            	|        [[11]](#c11),[[12]](#c12)       	|
-| MABAC              	| Multi-Attributive Border Approximation area Comparison                        	|              [[13]](#c13)              	|
-| MAIRCA             	| MultiAttributive Ideal-Real Comparative Analysis                              	| [[14]](#c14),[[15]](#c15),[[16]](#c16) 	|
-| MARCOS             	| Measurement Alternatives and Ranking according to COmpromise Solution         	|        [[17]](#c17),[[18]](#c18)       	|
-| OCRA               	| Operational Competitiveness Ratings                                           	|        [[19]](#c19),[[20]](#c20)       	|
-| MOORA              	| Multi-Objective Optimization Method by Ratio Analysis                         	|        [[21]](#c21),[[22]](#c22)       	|
+|  Acronym            	|  Method Name                                                                   	|                Reference               	|
+| :-------------------- | -------------------------------------------------------------------------------:  | :--------------------------------------:	|
+|  TOPSIS             	|  Technique for the Order of Prioritisation by Similarity to Ideal Solution     	|               [[1]](#c1)               	|
+|  VIKOR              	|  VIseKriterijumska Optimizacija I Kompromisno Resenje                          	|               [[2]](#c2)               	|
+|  COPRAS             	|  COmplex PRoportional ASsessment                                               	|               [[3]](#c3)               	|
+|  PROMETHEE I & II   	|  Preference Ranking Organization METHod for Enrichment of Evaluations I & II   	|               [[4]](#c4)               	|
+|  COMET              	|  Characteristic Objects Method                                                 	|               [[5]](#c5)               	|
+|  SPOTIS             	|  Stable Preference Ordering Towards Ideal Solution                             	|               [[6]](#c6)               	|
+|  ARAS               	|  Additive Ratio ASsessment                                                     	|          [[7]](#c7),[[8]](#c8)         	|
+|  COCOSO             	|  COmbined COmpromise SOlution                                                  	|               [[9]](#c9)               	|
+|  CODAS              	|  COmbinative Distance-based ASsessment                                         	|              [[10]](#c10)              	|
+|  EDAS               	|  Evaluation based on Distance from Average Solution                            	|        [[11]](#c11),[[12]](#c12)       	|
+|  MABAC              	|  Multi-Attributive Border Approximation area Comparison                        	|              [[13]](#c13)              	|
+|  MAIRCA             	|  MultiAttributive Ideal-Real Comparative Analysis                              	| [[14]](#c14),[[15]](#c15),[[16]](#c16) 	|
+|  MARCOS             	|  Measurement Alternatives and Ranking according to COmpromise Solution         	|        [[17]](#c17),[[18]](#c18)       	|
+|  OCRA               	|  Operational Competitiveness Ratings                                           	|        [[19]](#c19),[[20]](#c20)       	|
+|  MOORA              	|  Multi-Objective Optimization Method by Ratio Analysis                         	|        [[21]](#c21),[[22]](#c22)       	|
 
 * Weighting methods:
 
@@ -65,6 +65,8 @@ The library contains:
 | Linear Normalization (Max-Min)       	|  [[34]](#c34),[[38]](#c38) 	|
 | Non-linear Normalization (Max-Min)   	|        [[39]](#c39)        	|
 | Enhanced Accuracy Normalization      	|        [[40]](#c40)        	|
+| Lai and Hwang Normalization           |        [[38]](#c38)           |
+| Zavadskas and Turskis Normalization   |        [[38]](#c38)           |
 
 * Correlation coefficients:
 
