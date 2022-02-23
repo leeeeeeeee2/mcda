@@ -185,5 +185,4 @@ class TestZTNormalization(unittest.TestCase):
 
         output_method = helpers.normalize_matrix(matrix, norm.zavadskas_turskis_normalization, types).reshape(-1)
         output_method = [round(val, 8) for val in output_method]
-        print(output_method)
         self.assertListEqual(output, output_method)
