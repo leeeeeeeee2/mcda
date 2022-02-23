@@ -1,7 +1,7 @@
 # Copyright (c) 2020 Andrii Shekhovtsov
 
 import numpy as np
-from .. import normalizations
+from .. import helpers
 from .mcda_method import MCDA_method
 
 
@@ -89,7 +89,7 @@ class VIKOR(MCDA_method):
                     S, R, Q preference values (see VIKOR algorithm explanation).
         """
         VIKOR._validate_input_data(matrix, weights, types)
-        nmatrix = normalizations.normalize_matrix(matrix, self.normalization, types)
+        nmatrix = helpers.normalize_matrix(matrix, self.normalization, types)
         S, R, Q = VIKOR._vikor(nmatrix, weights, v)
         if return_all:
             return S, R, Q

@@ -2,6 +2,7 @@
 
 import numpy as np
 from .. import normalizations
+from .. import helpers
 from .mcda_method import MCDA_method
 
 
@@ -12,7 +13,7 @@ def _psi(x, tau=0.02):
 
 
 class CODAS(MCDA_method):
-    """ CCOmbinative Distance-based ASsessment (CODAS) method.
+    """ COmbinative Distance-based ASsessment (CODAS) method.
 
         The CODAS method is based on an approach based on Euclidean distance and Taxicab from the negative ideal solution
         [1].
@@ -29,8 +30,8 @@ class CODAS(MCDA_method):
         References
         ----------
         .. [1] Keshavarz Ghorabaee, M., Zavadskas, E. K., Turskis, Z., & Antucheviciene, J. (2016). A new combinative
-               distance-based assessment (CODAS) method for multi-criteria decision-making. Economic Computation & Economic
-               Cybernetics Studies & Research, 50(3).
+               distance-based assessment (CODAS) method for multi-criteria decision-making. Economic Computation &
+               Economic Cybernetics Studies & Research, 50(3).
 
         Examples
         --------
@@ -79,9 +80,9 @@ class CODAS(MCDA_method):
         """
         CODAS._validate_input_data(matrix, weights, types)
         if self.normalization is not None:
-            nmatrix = normalizations.normalize_matrix(matrix, self.normalization, types)
+            nmatrix = helpers.normalize_matrix(matrix, self.normalization, types)
         else:
-            nmatrix = normalizations.normalize_matrix(matrix, normalizations.linear_normalization, types)
+            nmatrix = helpers.normalize_matrix(matrix, normalizations.linear_normalization, types)
         return CODAS._codas(nmatrix, weights)
 
     @staticmethod

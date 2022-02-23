@@ -1,7 +1,7 @@
 # Copyright (c) 2021 Bartłomiej Kizielewicz
 
 import numpy as np
-from .. import normalizations
+from .. import helpers
 from .mcda_method import MCDA_method
 
 
@@ -101,7 +101,7 @@ class MARCOS(MCDA_method):
                 exmatrix[-1, i] = max_maxes[i]
 
         # Normalization
-        n_exmatrix = normalizations.normalize_matrix(exmatrix, normalization, types)
+        n_exmatrix = helpers.normalize_matrix(exmatrix, normalization, types)
 
         # Weighting
         weighted_matrix = n_exmatrix * weights

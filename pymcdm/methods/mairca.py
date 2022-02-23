@@ -2,6 +2,7 @@
 
 import numpy as np
 from .. import normalizations
+from .. import helpers
 from .mcda_method import MCDA_method
 
 
@@ -80,7 +81,7 @@ class MAIRCA(MCDA_method):
         Tp = 1 / n * weights
 
         # Creating real rating matrix
-        nmatrix = normalizations.normalize_matrix(martrix, normalization, types)
+        nmatrix = helpers.normalize_matrix(martrix, normalization, types)
         Tr = nmatrix * Tp
 
         # Calculation of Total Gap Matrix

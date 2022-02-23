@@ -2,6 +2,7 @@
 
 import numpy as np
 from .. import normalizations
+from .. import helpers
 from .mcda_method import MCDA_method
 
 
@@ -88,7 +89,7 @@ class ARAS(MCDA_method):
                 exmatrix[0, i] = np.min(matrix[:, i])
 
         # Every row of nmatrix is multiplayed by weights
-        nmatrix = normalizations.normalize_matrix(exmatrix, normalization, types)
+        nmatrix = helpers.normalize_matrix(exmatrix, normalization, types)
         weighted_matrix = nmatrix * weights
 
         # Values of optimality function

@@ -2,6 +2,7 @@
 
 import numpy as np
 from .. import normalizations
+from .. import helpers
 from .mcda_method import MCDA_method
 
 
@@ -72,9 +73,9 @@ class MABAC(MCDA_method):
         """
         MABAC._validate_input_data(matrix, weights, types)
         if self.normalization is not None:
-            nmatrix = normalizations.normalize_matrix(matrix, self.normalization, types)
+            nmatrix = helpers.normalize_matrix(matrix, self.normalization, types)
         else:
-            nmatrix = normalizations.normalize_matrix(matrix, normalizations.minmax_normalization, types)
+            nmatrix = helpers.normalize_matrix(matrix, normalizations.minmax_normalization, types)
         return MABAC._mabac(nmatrix, weights)
 
     @staticmethod
