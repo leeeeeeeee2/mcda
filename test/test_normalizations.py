@@ -166,3 +166,24 @@ class TestEANormalization(unittest.TestCase):
         output_method = helpers.normalize_matrix(matrix, norm.enhanced_accuracy_normalization, types).reshape(-1)
         output_method = [round(val, 8) for val in output_method]
         self.assertListEqual(output, output_method)
+
+
+class TestZTNormalization(unittest.TestCase):
+    """ Test output method without reference """
+
+    def test_output(self):
+        matrix = np.array([[66, 56, 95],
+                           [61, 55, 166],
+                           [65, 49, 113],
+                           [95, 56, 99],
+                           [63, 43, 178],
+                           [74, 59, 140]])
+
+        types = np.array([-1, -1, 1])
+        output = [0.69473684, 0.94915254, 1.0, 0.64210526, 0.93220339, 0.25263158, 0.68421053, 0.83050847, 0.81052632,
+                  1.0, 0.94915254, 0.95789474, 0.66315789, 0.72881356, 0.12631579, 0.77894737, 1.0, 0.52631579]
+
+        output_method = helpers.normalize_matrix(matrix, norm.zavadskas_turskis_normalization, types).reshape(-1)
+        output_method = [round(val, 8) for val in output_method]
+        print(output_method)
+        self.assertListEqual(output, output_method)

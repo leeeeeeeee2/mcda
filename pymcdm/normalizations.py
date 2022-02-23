@@ -12,7 +12,6 @@ __all__ = [
     'linear_normalization',
     'nonlinear_normalization',
     'enhanced_accuracy_normalization',
-    'lai_hwang_normalization',
     'zavadskas_turskis_normalization'
 ]
 
@@ -67,12 +66,6 @@ def enhanced_accuracy_normalization(x, cost=False):
     if cost:
         return 1 - (x - np.min(x)) / np.sum(x - np.min(x))
     return 1 - (np.max(x) - x) / np.sum(np.max(x) - x)
-
-
-def lai_hwang_normalization(x, cost=False):
-    if cost:
-        return x / (np.min(x) - np.max(x))
-    return x / (np.max(x) - np.min(x))
 
 
 def zavadskas_turskis_normalization(x, cost=False):
