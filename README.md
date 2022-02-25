@@ -21,7 +21,7 @@ The library contains:
 * MCDA methods:
 
 |  Acronym            	|  Method Name                                                                   	|                Reference               	|
-| :-------------------- | -------------------------------------------------------------------------------:  | :--------------------------------------:	|
+| :-------------------- | -------------------------------------------------------------------------------   | :--------------------------------------:	|
 |  TOPSIS             	|  Technique for the Order of Prioritisation by Similarity to Ideal Solution     	|               [[1]](#c1)               	|
 |  VIKOR              	|  VIseKriterijumska Optimizacija I Kompromisno Resenje                          	|               [[2]](#c2)               	|
 |  COPRAS             	|  COmplex PRoportional ASsessment                                               	|               [[3]](#c3)               	|
