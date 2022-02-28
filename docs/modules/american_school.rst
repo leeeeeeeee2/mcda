@@ -164,6 +164,66 @@ CODAS
 COPRAS
 =======================
 
+:class:`COPRAS` is designed to evaluate decision alternatives according to the following steps:
+
+**Step 1.** Calculate normalized decision matrix using equation (:eq:`eq:copras_sum`).
+
+.. math::
+    \begin{equation}
+        r_{i j}=\frac{x_{i j}}{\sum_{i=1}^{m} x_{i j}}
+    \end{equation}
+    :label: eq:copras_sum
+
+
+**Step 2.** Calculate difficult normalized decision matrix, which represents multiplication of the normalized decision
+matrix elements with the appropriate weight coefficients using equation (:eq:`eq:copras_e`).
+
+.. math::
+    \begin{equation}
+        v_{ij} = r_{ij} \cdot w_j
+    \end{equation}
+    :label: eq:copras_e
+
+**Step 3.** Determine the sums of difficult normalized values which was calculated previously. Equation
+(:eq:`eq:copras_splus`) should be used for profit criteria and equation (:eq:`eq:copras_sminus`) for cost criteria.
+
+.. math::
+    \begin{equation}
+        S_{+i}=\sum_{j=1}^{k} v_{i j}
+    \end{equation}
+    :label: eq:copras_splus
+
+.. math::
+    \begin{equation}
+        S_{-i}=\sum_{j=k+1}^{n} v_{i j}
+    \end{equation}
+    :label: eq:copras_sminus
+
+where :math:`k` is the number of attributes that must be maximized. The rest of attributes from :math:`k+1` to n prefer
+lower values. The :math:`S_{+i}` and :math:`S_{-i}` values show level of the goal achievement for alternatives. Higher
+value of :math:`S_{+i}` means that this alternative is better and the lower value of :math:`S_{-i}` also points to
+better alternative.
+
+**Step 4.** Calculate the relative significance of alternatives using equation (:eq:`eq:copras_q`).
+
+.. math::
+    \begin{equation}
+        \label{eq:copras_q}
+        Q_{i}=S_{+i}+\frac{S_{-\min } \cdot \sum_{i=1}^{m} S_{-i}}{S_{-i} \cdot \sum_{i=1}^{m}\left(\frac{S_{-\min }}{S_{-i}}\right)}
+    \end{equation}
+    :label: eq:copras_q
+
+**Step 5.** Final ranking is performed according :math:`U_i` values (:eq:`eq:copras_u`).
+
+.. math::
+    \begin{equation}
+        U_i = \frac{Q_i}{Q^{max}_i} \cdot 100\%
+    \end{equation}
+    :label: eq:copras_u
+
+Where :math:`Q^{max}_i` stands for maximum value of the utility function. Better alternatives has higher :math:`U_i`
+value.
+
 EDAS
 =======================
 
