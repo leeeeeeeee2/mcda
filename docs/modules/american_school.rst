@@ -26,7 +26,7 @@ alternatives, and :math:`m` is the number of criteria (:eq:`equ:mat`).
     :label: equ:mat
 
 **Step 2.** Normalization the decision matrix, where for profit criteria use the equation (:eq:`equ:profita`), and for
-cost, criteria use the equation (:eq:`equ:costa`). In this study, The Minimum-Maximum normalization method was used.
+cost, criteria use the equation (:eq:`equ:costa`). In this study, The Sum normalization method was used.
 
 .. math::
     \begin{equation}
@@ -160,6 +160,97 @@ In this study, a :math:`\lambda` value of 0.5 was used.
 
 CODAS
 =======================
+
+:class:`CODAS` is designed to evaluate decision alternatives according to the following steps:
+
+**Step 1.** Definition of a decision matrix of dimension :math:`n \times m`, where :math:`n` is the number of
+alternatives, and :math:`m` is the number of criteria (:eq:`equ:mat`).
+
+.. math::
+    \begin{equation}
+    x_{i j}=\left[\begin{array}{llll}
+    x_{11} & x_{12} & \ldots & x_{1 m} \\
+    x_{21} & x_{22} & \ldots & x_{2 m} \\
+    \ldots & \ldots & \ldots & \ldots \\
+    x_{n 1} & x_{n 2} & \ldots & x_{n m}
+    \end{array}\right]
+    \end{equation}
+    :label: equ:mat
+
+**Step 2.** Normalization the decision matrix, where for profit criteria use the equation (:eq:`equ:profitc`), and for
+cost, criteria use the equation (:eq:`equ:costc`). In this study, The Linear normalization method was used.
+
+.. math::
+    \begin{equation}
+        r_{ij} = \frac{x_{ij}}{\max_i x_{ij}}
+    \end{equation}
+    :label: equ:profitc
+
+.. math::
+    \begin{equation}
+        r_{ij} = \frac{\min_i x_{ij}}{x_{ij}}
+    \end{equation}
+    :label: equ:costc
+
+**Step 3.** Building a decision matrix :math:`v_{ij}` subjected to a weighting and normalization process using the
+Equation (:eq:`weightedc`).
+
+.. math::
+    \begin{equation}
+        v_{ij} = w_{j}r_{ij} \label{weightedc}
+    \end{equation}
+    :label: weightedc
+
+**Step 4.** Determine the negative-ideal solution (point) based on Equation (:eq:`nip`).
+
+.. math::
+    \begin{equation}
+        ns_j = \min_i {v_ij}
+    \end{equation}
+    :label: nip
+
+**Step 5.** Calculate the Euclidean and Taxicab distances of alternatives from the negative-ideal solution, shown as
+follows:
+
+.. math::
+    \begin{equation}
+        E_i = \sqrt{\sum_{i=1}^m \left ( v_{ij} - ns_j \right)^2}
+    \end{equation}
+
+.. math::
+    \begin{equation}
+        T_i = \sum_{j=1}^m \left | v_{ij} - ns_j \right |
+    \end{equation}
+
+**Step 6.** Construct the relative assessment matrix, shown as follows:
+
+.. math::
+    \begin{equation}
+        h_{i k}=\left(E_{i}-E_{k}\right)+\left(\psi\left(E_{i}-E_{k}\right) \times\left(T_{i}-T_{k}\right)\right)
+    \end{equation}
+
+where :math:`k \in \left \{ 1,2,\cdots,n \right \}` and :math:`psi` denotes a threshold function to recognize the
+equality of the Euclidean distances of two alternatives, and is defined as follows:
+
+.. math::
+    \begin{equation}
+        \psi(x)=\left\{\begin{array}{lll}
+        1 & \text { if } & |x| \geq \tau \\
+        0 & \text { if } & |x|<\tau
+        \end{array}\right.
+    \end{equation}
+
+In this function, :math:`\tau` is the threshold parameter that can be set by decisionmaker. It is suggested to set this
+parameter at a value between 0.01 and 0.05.
+
+**Step 7.** Calculate the assessment score of each alternative, shown as follows:
+
+.. math::
+    \begin{equation}
+    \mathrm{H}_{i}=\sum_{k=1}^{n} h_{i k}
+    \end{equation}
+
+**Step 8.** Rank the alternatives according to the decreasing values of assessment.
 
 COPRAS
 =======================
