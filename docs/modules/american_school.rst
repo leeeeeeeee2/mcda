@@ -9,6 +9,66 @@ American school
 ARAS
 =======================
 
+:class:`ARAS` is designed to evaluate decision alternatives according to the following steps:
+
+**Step 1.** Definition of a decision matrix of dimension :math:`n \times m`, where :math:`n` is the number of
+alternatives, and :math:`m` is the number of criteria (:eq:`equ:mat`).
+
+.. math::
+    \begin{equation}
+    x_{i j}=\left[\begin{array}{llll}
+    x_{11} & x_{12} & \ldots & x_{1 m} \\
+    x_{21} & x_{22} & \ldots & x_{2 m} \\
+    \ldots & \ldots & \ldots & \ldots \\
+    x_{n 1} & x_{n 2} & \ldots & x_{n m}
+    \end{array}\right]
+    \end{equation}
+    :label: equ:mat
+
+**Step 2.** Normalization the decision matrix, where for profit criteria use the equation (:eq:`equ:profita`), and for
+cost, criteria use the equation (:eq:`equ:costa`). In this study, The Minimum-Maximum normalization method was used.
+
+.. math::
+    \begin{equation}
+        r_{ij} = \frac{x_{ij}}{\sum_m^{i=0}x_{ij}}
+    \end{equation}
+    :label: equ:profita
+
+.. math::
+    \begin{equation}
+        r_{ij} = \frac{\frac{1}{x_{ij}}}{\sum_m^{i=0}\frac{1}{x_{ij}}}
+    \end{equation}
+    :label: equ:costa
+
+**Step 3.** Building a decision matrix :math:`v_{ij}` subjected to a weighting and normalization process using the
+Equation (:eq:`weighted`).
+
+.. math::
+    \begin{equation}
+        v_{ij} = w_{j}r_{ij} \label{weighted}
+    \end{equation}
+    :label: weighted
+
+**Step 4.** Determining values of optimality function using the Equation (:eq:`opf`).
+
+
+.. math::
+    \begin{equation}
+        S_i = \sum_{j=1}^{n} v_{ij}
+    \end{equation}
+    :label: opf
+
+**Step 5.** Calculate the utility degree :math:`K_i` based on Equation (:eq:`ud`).
+
+.. math::
+    \begin{equation}
+        K_i = \frac{S_i}{S_0}
+    \end{equation}
+    :label: ud
+
+where :math:`S_i` and :math:`S_0` are the optimality criterion values.
+
+
 COCOSO
 =======================
 
@@ -97,6 +157,9 @@ In this study, a :math:`\lambda` value of 0.5 was used.
     k_{i}=\left(k_{i a} k_{i b} k_{i c}\right)^{\frac{1}{3}}+\frac{1}{3}\left(k_{i a}+k_{i b}+k_{i c}\right)
     \end{equation}
     :label: equ:ki
+
+CODAS
+=======================
 
 COPRAS
 =======================
